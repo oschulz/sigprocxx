@@ -38,6 +38,12 @@ void VectorIO::stuff(std::vector<uint8_t> &stuffed, std::vector<int32_t> &sizes,
 void VectorIO::unstuff(const std::vector<uint8_t> &stuffed, const std::vector<int32_t> &sizes, int i, std::vector<uint8_t> &v)
 	{ unstuffT(stuffed, sizes, i, v); }
 
+void VectorIO::zzEnc(std::vector<uint8_t> &enc, const std::vector<int8_t> &v)
+	{ zzEncT(enc, v); }
+
+void VectorIO::zzDec(const std::vector<uint8_t> &enc, std::vector<int8_t> &v)
+	{ zzDecT(enc, v); }
+
 
 std::ostream& VectorIO::print(std::ostream &os, const std::vector<int16_t> &v)
 	{ return printT(os, v); }
@@ -51,6 +57,12 @@ void VectorIO::stuff(std::vector<int16_t> &stuffed, std::vector<int32_t> &sizes,
 void VectorIO::unstuff(const std::vector<int16_t> &stuffed, const std::vector<int32_t> &sizes, int i, std::vector<int16_t> &v)
 	{ unstuffT(stuffed, sizes, i, v); }
 
+void VectorIO::zzEnc(std::vector<uint16_t> &enc, const std::vector<int16_t> &v)
+	{ zzEncT(enc, v); }
+
+void VectorIO::zzDec(const std::vector<uint16_t> &enc, std::vector<int16_t> &v)
+	{ zzDecT(enc, v); }
+
 
 std::ostream& VectorIO::print(std::ostream &os, const std::vector<int32_t> &v)
 	{ return printT(os, v); }
@@ -63,6 +75,12 @@ void VectorIO::stuff(std::vector<int32_t> &stuffed, std::vector<int32_t> &sizes,
 
 void VectorIO::unstuff(const std::vector<int32_t> &stuffed, const std::vector<int32_t> &sizes, int i, std::vector<int32_t> &v)
 	{ unstuffT(stuffed, sizes, i, v); }
+
+void VectorIO::zzEnc(std::vector<uint32_t> &enc, const std::vector<int32_t> &v)
+	{ zzEncT(enc, v); }
+
+void VectorIO::zzDec(const std::vector<uint32_t> &enc, std::vector<int32_t> &v)
+	{ zzDecT(enc, v); }
 
 
 } // namespace sigpx
