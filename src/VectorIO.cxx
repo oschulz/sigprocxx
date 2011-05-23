@@ -29,6 +29,9 @@ namespace sigpx {
 std::ostream& VectorIO::print(std::ostream &os, const std::vector<uint8_t> &v)
 	{ return printT(os, v); }
 
+std::ostream& VectorIO::print(std::ostream &os, const std::vector<int8_t> &v)
+	{ return printT(os, v); }
+
 void VectorIO::stuff(std::vector<uint8_t> &stuffed, std::vector<int32_t> &sizes, const std::vector<uint8_t> &v)
 	{ stuffT(stuffed, sizes, v); }
 
@@ -39,6 +42,9 @@ void VectorIO::unstuff(const std::vector<uint8_t> &stuffed, const std::vector<in
 std::ostream& VectorIO::print(std::ostream &os, const std::vector<int16_t> &v)
 	{ return printT(os, v); }
 
+std::ostream& VectorIO::print(std::ostream &os, const std::vector<uint16_t> &v)
+	{ return printT(os, v); }
+
 void VectorIO::stuff(std::vector<int16_t> &stuffed, std::vector<int32_t> &sizes, const std::vector<int16_t> &v)
 	{ stuffT(stuffed, sizes, v); }
 
@@ -47,6 +53,9 @@ void VectorIO::unstuff(const std::vector<int16_t> &stuffed, const std::vector<in
 
 
 std::ostream& VectorIO::print(std::ostream &os, const std::vector<int32_t> &v)
+	{ return printT(os, v); }
+
+std::ostream& VectorIO::print(std::ostream &os, const std::vector<uint32_t> &v)
 	{ return printT(os, v); }
 
 void VectorIO::stuff(std::vector<int32_t> &stuffed, std::vector<int32_t> &sizes, const std::vector<int32_t> &v)
