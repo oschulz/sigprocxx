@@ -46,12 +46,6 @@ void VectorOps::stuff(std::vector<uint8_t> &stuffed, std::vector<int32_t> &sizes
 void VectorOps::unstuff(const std::vector<uint8_t> &stuffed, const std::vector<int32_t> &sizes, int i, std::vector<uint8_t> &v)
 	{ unstuffT(stuffed, sizes, i, v); }
 
-void VectorOps::zzEnc(std::vector<uint8_t> &enc, const std::vector<int8_t> &v)
-	{ zzEncT(enc, v); }
-
-void VectorOps::zzDec(const std::vector<uint8_t> &enc, std::vector<int8_t> &v)
-	{ zzDecT(enc, v); }
-
 
 std::ostream& VectorOps::print(std::ostream &os, const std::vector<int16_t> &v)
 	{ return printT(os, v); }
@@ -65,12 +59,6 @@ void VectorOps::stuff(std::vector<int16_t> &stuffed, std::vector<int32_t> &sizes
 void VectorOps::unstuff(const std::vector<int16_t> &stuffed, const std::vector<int32_t> &sizes, int i, std::vector<int16_t> &v)
 	{ unstuffT(stuffed, sizes, i, v); }
 
-void VectorOps::zzEnc(std::vector<uint16_t> &enc, const std::vector<int16_t> &v)
-	{ zzEncT(enc, v); }
-
-void VectorOps::zzDec(const std::vector<uint16_t> &enc, std::vector<int16_t> &v)
-	{ zzDecT(enc, v); }
-
 
 std::ostream& VectorOps::print(std::ostream &os, const std::vector<int32_t> &v)
 	{ return printT(os, v); }
@@ -83,12 +71,6 @@ void VectorOps::stuff(std::vector<int32_t> &stuffed, std::vector<int32_t> &sizes
 
 void VectorOps::unstuff(const std::vector<int32_t> &stuffed, const std::vector<int32_t> &sizes, int i, std::vector<int32_t> &v)
 	{ unstuffT(stuffed, sizes, i, v); }
-
-void VectorOps::zzEnc(std::vector<uint32_t> &enc, const std::vector<int32_t> &v)
-	{ zzEncT(enc, v); }
-
-void VectorOps::zzDec(const std::vector<uint32_t> &enc, std::vector<int32_t> &v)
-	{ zzDecT(enc, v); }
 
 
 } // namespace sigpx

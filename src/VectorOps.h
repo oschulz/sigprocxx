@@ -23,8 +23,6 @@
 #include <cassert>
 #include <stdint.h>
 
-#include "Math.h"
-
 
 namespace sigpx {
 
@@ -37,29 +35,20 @@ public:
 
 	template<typename tp_Type> static void unstuffT(const std::vector<tp_Type> &stuffed, const std::vector<int32_t> &sizes, int i, std::vector<tp_Type> &v);
 
-	template<typename tp_Type, typename tp_Type2> static void zzEncT(std::vector<tp_Type> &enc, const std::vector<tp_Type2> &v);
-	template<typename tp_Type, typename tp_Type2> static void zzDecT(const std::vector<tp_Type> &enc, std::vector<tp_Type2> &v);
-
 	static std::ostream& print(std::ostream &os, const std::vector<int8_t> &v);
 	static std::ostream& print(std::ostream &os, const std::vector<uint8_t> &v);
 	static void stuff(std::vector<uint8_t> &stuffed, std::vector<int32_t> &sizes, const std::vector<uint8_t> &v);
 	static void unstuff(const std::vector<uint8_t> &stuffed, const std::vector<int32_t> &sizes, int i, std::vector<uint8_t> &v);
-	static void zzEnc(std::vector<uint8_t> &enc, const std::vector<int8_t> &v);
-	static void zzDec(const std::vector<uint8_t> &enc, std::vector<int8_t> &v);
 
 	static std::ostream& print(std::ostream &os, const std::vector<int16_t> &v);
 	static std::ostream& print(std::ostream &os, const std::vector<uint16_t> &v);
 	static void stuff(std::vector<int16_t> &stuffed, std::vector<int32_t> &sizes, const std::vector<int16_t> &v);
 	static void unstuff(const std::vector<int16_t> &stuffed, const std::vector<int32_t> &sizes, int i, std::vector<int16_t> &v);
-	static void zzEnc(std::vector<uint16_t> &enc, const std::vector<int16_t> &v);
-	static void zzDec(const std::vector<uint16_t> &enc, std::vector<int16_t> &v);
 
 	static std::ostream& print(std::ostream &os, const std::vector<int32_t> &v);
 	static std::ostream& print(std::ostream &os, const std::vector<uint32_t> &v);
 	static void stuff(std::vector<int32_t> &stuffed, std::vector<int32_t> &sizes, const std::vector<int32_t> &v);
 	static void unstuff(const std::vector<int32_t> &stuffed, const std::vector<int32_t> &sizes, int i, std::vector<int32_t> &v);
-	static void zzEnc(std::vector<uint32_t> &enc, const std::vector<int32_t> &v);
-	static void zzDec(const std::vector<uint32_t> &enc, std::vector<int32_t> &v);
 };
 
 
@@ -90,25 +79,6 @@ template<typename tp_Type> void VectorOps::unstuffT(const std::vector<tp_Type> &
 	v.resize(sizes[i]);
 	for (int j = 0; j < v.size(); ++j) v[j] = stuffed[offset + j];
 }
-
-
-template<typename tp_Type, typename tp_Type2> void VectorOps::zzEncT(std::vector<tp_Type> &enc, const std::vector<tp_Type2> &v) {
-	if (enc.size() != v.size()) {
-		if (enc.size() > v.size()) enc.reserve(enc.size());
-		enc.resize(v.size());
-	}
-	for (int i=0; i<v.size(); ++i) enc[i] = Math::zzEnc(v[i]);
-}
-
-
-template<typename tp_Type, typename tp_Type2> void VectorOps::zzDecT(const std::vector<tp_Type> &enc, std::vector<tp_Type2> &v) {
-	if (v.size() != enc.size()) {
-		if (v.size() > enc.size()) v.reserve(v.size());
-		v.resize(enc.size());
-	}
-	for (int i=0; i<enc.size(); ++i) v[i] = Math::zzDec(enc[i]);
-}
-
 
 
 } // namespace sigpx
