@@ -34,23 +34,17 @@ public:
 
 	template<typename tp_Type> static void unstuffT(const std::vector<tp_Type> &stuffed, const std::vector<int32_t> &sizes, int i, std::vector<tp_Type> &v);
 
-	template<typename tp_Type> static std::vector<tp_Type> unstuffT(std::vector<tp_Type> &stuffed, std::vector<int32_t> &sizes, int i)
-		{ std::vector<tp_Type> v; unstuff(stuffed, sizes, i, v); return v; }
-	
 	static std::ostream& print(std::ostream &os, const std::vector<uint8_t> &v);
 	static void stuff(std::vector<uint8_t> &stuffed, std::vector<int32_t> &sizes, const std::vector<uint8_t> &v);
 	static void unstuff(const std::vector<uint8_t> &stuffed, const std::vector<int32_t> &sizes, int i, std::vector<uint8_t> &v);
-	static std::vector<uint8_t> unstuff(std::vector<uint8_t> &stuffed, std::vector<int32_t> &sizes, int i);
 
 	static std::ostream& print(std::ostream &os, const std::vector<int16_t> &v);
 	static void stuff(std::vector<int16_t> &stuffed, std::vector<int32_t> &sizes, const std::vector<int16_t> &v);
 	static void unstuff(const std::vector<int16_t> &stuffed, const std::vector<int32_t> &sizes, int i, std::vector<int16_t> &v);
-	static std::vector<int16_t> unstuff(std::vector<int16_t> &stuffed, std::vector<int32_t> &sizes, int i);
 
 	static std::ostream& print(std::ostream &os, const std::vector<int32_t> &v);
 	static void stuff(std::vector<int32_t> &stuffed, std::vector<int32_t> &sizes, const std::vector<int32_t> &v);
 	static void unstuff(const std::vector<int32_t> &stuffed, const std::vector<int32_t> &sizes, int i, std::vector<int32_t> &v);
-	static std::vector<int32_t> unstuff(std::vector<int32_t> &stuffed, std::vector<int32_t> &sizes, int i);
 };
 
 
