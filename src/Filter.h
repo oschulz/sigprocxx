@@ -64,33 +64,25 @@ public:
 
 
 #ifdef __CINT__
-#pragma link C++ class sigpx::Mapper< int8_t,   int8_t>-;
-#pragma link C++ class sigpx::Mapper<uint8_t,  uint8_t>-;
-#pragma link C++ class sigpx::Mapper< int16_t,  int16_t>-;
-#pragma link C++ class sigpx::Mapper< int16_t,  int32_t>-;
-#pragma link C++ class sigpx::Mapper< int16_t,  float>-;
-#pragma link C++ class sigpx::Mapper< int16_t,  double>-;
-#pragma link C++ class sigpx::Mapper<uint16_t, uint16_t>-;
-#pragma link C++ class sigpx::Mapper< int32_t,  int32_t>-;
-#pragma link C++ class sigpx::Mapper< int32_t,  int16_t>-;
-#pragma link C++ class sigpx::Mapper< int32_t,  float>-;
-#pragma link C++ class sigpx::Mapper< int32_t,  double>-;
-#pragma link C++ class sigpx::Mapper<uint32_t, uint32_t>-;
-#pragma link C++ class sigpx::Mapper< int64_t,  int64_t>-;
-#pragma link C++ class sigpx::Mapper<uint64_t, uint64_t>-;
-#pragma link C++ class sigpx::Mapper< float,    float>-;
-#pragma link C++ class sigpx::Mapper< float,    double>-;
-#pragma link C++ class sigpx::Mapper< double,   double>-;
-#pragma link C++ class sigpx::Mapper< double,   float>-;
+#pragma link C++ class sigpx::Mapper<int8_t,  int8_t>-;
+#pragma link C++ class sigpx::Mapper<int16_t, int16_t>-;
+#pragma link C++ class sigpx::Mapper<int16_t, int32_t>-;
+#pragma link C++ class sigpx::Mapper<int16_t, float>-;
+#pragma link C++ class sigpx::Mapper<int16_t, double>-;
+#pragma link C++ class sigpx::Mapper<int32_t, int32_t>-;
+#pragma link C++ class sigpx::Mapper<int32_t, int16_t>-;
+#pragma link C++ class sigpx::Mapper<int32_t, float>-;
+#pragma link C++ class sigpx::Mapper<int32_t, double>-;
+#pragma link C++ class sigpx::Mapper<int64_t, int64_t>-;
+#pragma link C++ class sigpx::Mapper<float,   float>-;
+#pragma link C++ class sigpx::Mapper<float,   double>-;
+#pragma link C++ class sigpx::Mapper<double,  double>-;
+#pragma link C++ class sigpx::Mapper<double,  float>-;
 
 #pragma link C++ class sigpx::Filter<int8_t>-;
-#pragma link C++ class sigpx::Filter<uint8_t>-;
 #pragma link C++ class sigpx::Filter<int16_t>-;
-#pragma link C++ class sigpx::Filter<uint16_t>-;
 #pragma link C++ class sigpx::Filter<int32_t>-;
-#pragma link C++ class sigpx::Filter<uint32_t>-;
 #pragma link C++ class sigpx::Filter<int64_t>-;
-#pragma link C++ class sigpx::Filter<uint64_t>-;
 #pragma link C++ class sigpx::Filter<float>-;
 #pragma link C++ class sigpx::Filter<double>-;
 #endif
