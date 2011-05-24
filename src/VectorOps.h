@@ -42,17 +42,17 @@ public:
 
 	static std::ostream& print(std::ostream &os, const std::vector<int8_t> &v);
 	static std::ostream& print(std::ostream &os, const std::vector<uint8_t> &v);
-	static void stuff(std::vector<char> &stuffed, std::vector<int32_t> &sizes, const std::vector<char> &v);
-	static void unstuff(const std::vector<char> &stuffed, const std::vector<int32_t> &sizes, size_t i, std::vector<char> &v);
-
 	static std::ostream& print(std::ostream &os, const std::vector<int16_t> &v);
 	static std::ostream& print(std::ostream &os, const std::vector<uint16_t> &v);
-	static void stuff(std::vector<int16_t> &stuffed, std::vector<int32_t> &sizes, const std::vector<int16_t> &v);
-	static void unstuff(const std::vector<int16_t> &stuffed, const std::vector<int32_t> &sizes, size_t i, std::vector<int16_t> &v);
-
 	static std::ostream& print(std::ostream &os, const std::vector<int32_t> &v);
 	static std::ostream& print(std::ostream &os, const std::vector<uint32_t> &v);
+
+	static void stuff(std::vector<char> &stuffed, std::vector<int32_t> &sizes, const std::vector<char> &v);
+	static void stuff(std::vector<int16_t> &stuffed, std::vector<int32_t> &sizes, const std::vector<int16_t> &v);
 	static void stuff(std::vector<int32_t> &stuffed, std::vector<int32_t> &sizes, const std::vector<int32_t> &v);
+
+	static void unstuff(const std::vector<char> &stuffed, const std::vector<int32_t> &sizes, size_t i, std::vector<char> &v);
+	static void unstuff(const std::vector<int16_t> &stuffed, const std::vector<int32_t> &sizes, size_t i, std::vector<int16_t> &v);
 	static void unstuff(const std::vector<int32_t> &stuffed, const std::vector<int32_t> &sizes, size_t i, std::vector<int32_t> &v);
 
 	inline static void copy(const std::vector<int8_t> &src, std::vector<int8_t> &trg) { copyT(src, trg); }
