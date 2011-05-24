@@ -35,6 +35,11 @@ public:
 
 	template<typename tp_Type> static void unstuffT(const std::vector<tp_Type> &stuffed, const std::vector<int32_t> &sizes, size_t i, std::vector<tp_Type> &v);
 
+	template<typename tp_Type, typename tp_Type2> inline static void copyT(const std::vector<tp_Type> &src, std::vector<tp_Type2> &trg) {
+		trg.resize(src.size());
+		for (size_t i = 0; i < src.size(); ++i) trg[i] = src[i];
+	}
+
 	static std::ostream& print(std::ostream &os, const std::vector<int8_t> &v);
 	static std::ostream& print(std::ostream &os, const std::vector<uint8_t> &v);
 	static void stuff(std::vector<char> &stuffed, std::vector<int32_t> &sizes, const std::vector<char> &v);
@@ -49,6 +54,30 @@ public:
 	static std::ostream& print(std::ostream &os, const std::vector<uint32_t> &v);
 	static void stuff(std::vector<int32_t> &stuffed, std::vector<int32_t> &sizes, const std::vector<int32_t> &v);
 	static void unstuff(const std::vector<int32_t> &stuffed, const std::vector<int32_t> &sizes, size_t i, std::vector<int32_t> &v);
+
+	inline static void copy(const std::vector<int8_t> &src, std::vector<int8_t> &trg) { copyT(src, trg); }
+	inline static void copy(const std::vector<int8_t> &src, std::vector<uint8_t> &trg) { copyT(src, trg); }
+	inline static void copy(const std::vector<uint8_t> &src, std::vector<int8_t> &trg) { copyT(src, trg); }
+	inline static void copy(const std::vector<int16_t> &src, std::vector<int16_t> &trg) { copyT(src, trg); }
+	inline static void copy(const std::vector<int16_t> &src, std::vector<uint16_t> &trg) { copyT(src, trg); }
+	inline static void copy(const std::vector<int16_t> &src, std::vector<int32_t> &trg) { copyT(src, trg); }
+	inline static void copy(const std::vector<int16_t> &src, std::vector<float> &trg) { copyT(src, trg); }
+	inline static void copy(const std::vector<int16_t> &src, std::vector<double> &trg) { copyT(src, trg); }
+	inline static void copy(const std::vector<uint16_t> &src, std::vector<int16_t> &trg) { copyT(src, trg); }
+	inline static void copy(const std::vector<int32_t> &src, std::vector<int32_t> &trg) { copyT(src, trg); }
+	inline static void copy(const std::vector<int32_t> &src, std::vector<uint32_t> &trg) { copyT(src, trg); }
+	inline static void copy(const std::vector<int32_t> &src, std::vector<int16_t> &trg) { copyT(src, trg); }
+	inline static void copy(const std::vector<int32_t> &src, std::vector<float> &trg) { copyT(src, trg); }
+	inline static void copy(const std::vector<int32_t> &src, std::vector<double> &trg) { copyT(src, trg); }
+	inline static void copy(const std::vector<uint32_t> &src, std::vector<int32_t> &trg) { copyT(src, trg); }
+	inline static void copy(const std::vector<float> &src, std::vector<float> &trg) { copyT(src, trg); }
+	inline static void copy(const std::vector<float> &src, std::vector<double> &trg) { copyT(src, trg); }
+	inline static void copy(const std::vector<float> &src, std::vector<int16_t> &trg) { copyT(src, trg); }
+	inline static void copy(const std::vector<float> &src, std::vector<int32_t> &trg) { copyT(src, trg); }
+	inline static void copy(const std::vector<double> &src, std::vector<double> &trg) { copyT(src, trg); }
+	inline static void copy(const std::vector<double> &src, std::vector<float> &trg) { copyT(src, trg); }
+	inline static void copy(const std::vector<double> &src, std::vector<int16_t> &trg) { copyT(src, trg); }
+	inline static void copy(const std::vector<double> &src, std::vector<int32_t> &trg) { copyT(src, trg); }
 };
 
 
