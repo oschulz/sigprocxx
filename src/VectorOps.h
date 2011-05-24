@@ -33,51 +33,51 @@ public:
 
 	template<typename tp_Type> static void stuffT(std::vector<tp_Type> &stuffed, std::vector<int32_t> &sizes, const std::vector<tp_Type> &v);
 
-	template<typename tp_Type> static void unstuffT(const std::vector<tp_Type> &stuffed, const std::vector<int32_t> &sizes, int i, std::vector<tp_Type> &v);
+	template<typename tp_Type> static void unstuffT(const std::vector<tp_Type> &stuffed, const std::vector<int32_t> &sizes, size_t i, std::vector<tp_Type> &v);
 
 	static std::ostream& print(std::ostream &os, const std::vector<int8_t> &v);
 	static std::ostream& print(std::ostream &os, const std::vector<uint8_t> &v);
 	static void stuff(std::vector<uint8_t> &stuffed, std::vector<int32_t> &sizes, const std::vector<uint8_t> &v);
-	static void unstuff(const std::vector<uint8_t> &stuffed, const std::vector<int32_t> &sizes, int i, std::vector<uint8_t> &v);
+	static void unstuff(const std::vector<uint8_t> &stuffed, const std::vector<int32_t> &sizes, size_t i, std::vector<uint8_t> &v);
 
 	static std::ostream& print(std::ostream &os, const std::vector<int16_t> &v);
 	static std::ostream& print(std::ostream &os, const std::vector<uint16_t> &v);
 	static void stuff(std::vector<int16_t> &stuffed, std::vector<int32_t> &sizes, const std::vector<int16_t> &v);
-	static void unstuff(const std::vector<int16_t> &stuffed, const std::vector<int32_t> &sizes, int i, std::vector<int16_t> &v);
+	static void unstuff(const std::vector<int16_t> &stuffed, const std::vector<int32_t> &sizes, size_t i, std::vector<int16_t> &v);
 
 	static std::ostream& print(std::ostream &os, const std::vector<int32_t> &v);
 	static std::ostream& print(std::ostream &os, const std::vector<uint32_t> &v);
 	static void stuff(std::vector<int32_t> &stuffed, std::vector<int32_t> &sizes, const std::vector<int32_t> &v);
-	static void unstuff(const std::vector<int32_t> &stuffed, const std::vector<int32_t> &sizes, int i, std::vector<int32_t> &v);
+	static void unstuff(const std::vector<int32_t> &stuffed, const std::vector<int32_t> &sizes, size_t i, std::vector<int32_t> &v);
 };
 
 
 template<typename tp_Type> std::ostream& VectorOps::printT(std::ostream &os, const std::vector<tp_Type> &v) {
 	using namespace std;
 	cout << "(";
-	for (int i=0; i<v.size(); ++i) cout << ((i > 0) ? ", " : "") << v[i];
+	for (size_t i = 0; i < v.size(); ++i) cout << ((i > 0) ? ", " : "") << v[i];
 	cout << ")";
 	return cout;
 }
 
 
 template<typename tp_Type> void VectorOps::stuffT(std::vector<tp_Type> &stuffed, std::vector<int32_t> &sizes, const std::vector<tp_Type> &v) {
-	int offset = stuffed.size();
+	size_t offset = stuffed.size();
 	size_t requiredSize = offset + v.size();
 	if (stuffed.capacity() < requiredSize)
 		stuffed.reserve(std::max(stuffed.capacity() * 2, requiredSize));
 	stuffed.resize(requiredSize);
-	for (int i = 0; i < v.size(); ++i) stuffed[offset + i] = v[i];
+	for (size_t i = 0; i < v.size(); ++i) stuffed[offset + i] = v[i];
 	if (sizes.capacity() < sizes.size() + 1) sizes.reserve(std::max(sizes.capacity() * 2, sizes.size() + 1));
 	sizes.push_back(v.size());
 }
 
 
-template<typename tp_Type> void VectorOps::unstuffT(const std::vector<tp_Type> &stuffed, const std::vector<int32_t> &sizes, int i, std::vector<tp_Type> &v) {
+template<typename tp_Type> void VectorOps::unstuffT(const std::vector<tp_Type> &stuffed, const std::vector<int32_t> &sizes, size_t i, std::vector<tp_Type> &v) {
 	assert (i < sizes.size());
-	int offset = 0; for (int j = 0; j < i; ++j) offset += sizes[j];
+	size_t offset = 0; for (size_t j = 0; j < i; ++j) offset += sizes[j];
 	v.resize(sizes[i]);
-	for (int j = 0; j < v.size(); ++j) v[j] = stuffed[offset + j];
+	for (size_t j = 0; j < v.size(); ++j) v[j] = stuffed[offset + j];
 }
 
 

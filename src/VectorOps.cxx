@@ -28,14 +28,14 @@ namespace sigpx {
 
 std::ostream& VectorOps::print(std::ostream &os, const std::vector<uint8_t> &v) {
 	cout << "(";
-	for (int i=0; i<v.size(); ++i) cout << ((i > 0) ? ", " : "") << uint16_t(v[i]);
+	for (size_t i = 0; i < v.size(); ++i) cout << ((i > 0) ? ", " : "") << uint16_t(v[i]);
 	cout << ")";
 	return cout;
 }
 
 std::ostream& VectorOps::print(std::ostream &os, const std::vector<int8_t> &v) {
 	cout << "(";
-	for (int i=0; i<v.size(); ++i) cout << ((i > 0) ? ", " : "") << int16_t(v[i]);
+	for (size_t i = 0; i < v.size(); ++i) cout << ((i > 0) ? ", " : "") << int16_t(v[i]);
 	cout << ")";
 	return cout;
 }
@@ -43,7 +43,7 @@ std::ostream& VectorOps::print(std::ostream &os, const std::vector<int8_t> &v) {
 void VectorOps::stuff(std::vector<uint8_t> &stuffed, std::vector<int32_t> &sizes, const std::vector<uint8_t> &v)
 	{ stuffT(stuffed, sizes, v); }
 
-void VectorOps::unstuff(const std::vector<uint8_t> &stuffed, const std::vector<int32_t> &sizes, int i, std::vector<uint8_t> &v)
+void VectorOps::unstuff(const std::vector<uint8_t> &stuffed, const std::vector<int32_t> &sizes, size_t i, std::vector<uint8_t> &v)
 	{ unstuffT(stuffed, sizes, i, v); }
 
 
@@ -56,7 +56,7 @@ std::ostream& VectorOps::print(std::ostream &os, const std::vector<uint16_t> &v)
 void VectorOps::stuff(std::vector<int16_t> &stuffed, std::vector<int32_t> &sizes, const std::vector<int16_t> &v)
 	{ stuffT(stuffed, sizes, v); }
 
-void VectorOps::unstuff(const std::vector<int16_t> &stuffed, const std::vector<int32_t> &sizes, int i, std::vector<int16_t> &v)
+void VectorOps::unstuff(const std::vector<int16_t> &stuffed, const std::vector<int32_t> &sizes, size_t i, std::vector<int16_t> &v)
 	{ unstuffT(stuffed, sizes, i, v); }
 
 
@@ -69,7 +69,7 @@ std::ostream& VectorOps::print(std::ostream &os, const std::vector<uint32_t> &v)
 void VectorOps::stuff(std::vector<int32_t> &stuffed, std::vector<int32_t> &sizes, const std::vector<int32_t> &v)
 	{ stuffT(stuffed, sizes, v); }
 
-void VectorOps::unstuff(const std::vector<int32_t> &stuffed, const std::vector<int32_t> &sizes, int i, std::vector<int32_t> &v)
+void VectorOps::unstuff(const std::vector<int32_t> &stuffed, const std::vector<int32_t> &sizes, size_t i, std::vector<int32_t> &v)
 	{ unstuffT(stuffed, sizes, i, v); }
 
 
