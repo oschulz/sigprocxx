@@ -25,5 +25,4 @@ using namespace std;
 
 namespace sigpx {
 
-
 } // namespace sigpx

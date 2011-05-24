@@ -46,31 +46,67 @@ public:
 };
 
 
+template<typename From, typename To> class MovingSum: public Iterator<To> {
+protected:
+	const std::vector<From> &m_v;
+	size_t m_size;
+	size_t m_pos;
+	To m_sum;
+	bool m_firstRun;
+
+	void init() {
+		if (m_pos + m_size-1 >= m_v.size()) m_pos = m_v.size();
+		else {
+			for (size_t i = 0; i < m_size-1; ++i) m_sum += m_v[m_pos + i];
+			m_pos += m_size-1;
+		}
+	}
+
+public:
+	bool empty() const { return m_pos >= m_v.size(); }
+	size_t size() const { return m_v.size() - m_pos; }
+
+	To next() {
+		if (m_firstRun) m_firstRun = false;
+		else m_sum -= m_v[m_pos - m_size];
+		m_sum += m_v[m_pos];
+		m_pos ++;
+		return m_sum;
+	}
+
+	MovingSum(const std::vector<From> &v, size_t size, size_t start)
+		: m_v(v), m_size(size), m_pos(start), m_sum(0), m_firstRun(true)
+		{ init(); }
+
+	MovingSum(const std::vector<From> &v, size_t size)
+		: m_v(v), m_size(size), m_pos(0), m_sum(0), m_firstRun(true)
+		{ init(); }
+};
+
+
 } // namespace sigpx
 
 
 #ifdef __CINT__
 #pragma link C++ class sigpx::DiffFilter<int8_t>-;
-#pragma link C++ class sigpx::DiffFilter<uint8_t>-;
 #pragma link C++ class sigpx::DiffFilter<int16_t>-;
-#pragma link C++ class sigpx::DiffFilter<uint16_t>-;
 #pragma link C++ class sigpx::DiffFilter<int32_t>-;
-#pragma link C++ class sigpx::DiffFilter<uint32_t>-;
 #pragma link C++ class sigpx::DiffFilter<int64_t>-;
-#pragma link C++ class sigpx::DiffFilter<uint64_t>-;
 #pragma link C++ class sigpx::DiffFilter<float>-;
 #pragma link C++ class sigpx::DiffFilter<double>-;
 
 #pragma link C++ class sigpx::SumFilter<int8_t>-;
-#pragma link C++ class sigpx::SumFilter<uint8_t>-;
 #pragma link C++ class sigpx::SumFilter<int16_t>-;
-#pragma link C++ class sigpx::SumFilter<uint16_t>-;
 #pragma link C++ class sigpx::SumFilter<int32_t>-;
-#pragma link C++ class sigpx::SumFilter<uint32_t>-;
 #pragma link C++ class sigpx::SumFilter<int64_t>-;
-#pragma link C++ class sigpx::SumFilter<uint64_t>-;
 #pragma link C++ class sigpx::SumFilter<float>-;
 #pragma link C++ class sigpx::SumFilter<double>-;
+
+#pragma link C++ class sigpx::MovingSum<int16_t, int32_t>-;
+#pragma link C++ class sigpx::MovingSum<int32_t, int32_t>-;
+#pragma link C++ class sigpx::MovingSum<float, float>-;
+#pragma link C++ class sigpx::MovingSum<float, double>-;
+
 #endif
 
 #endif // SIGPX_FILTERS_H
