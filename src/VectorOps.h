@@ -37,8 +37,8 @@ public:
 
 	static std::ostream& print(std::ostream &os, const std::vector<int8_t> &v);
 	static std::ostream& print(std::ostream &os, const std::vector<uint8_t> &v);
-	static void stuff(std::vector<uint8_t> &stuffed, std::vector<int32_t> &sizes, const std::vector<uint8_t> &v);
-	static void unstuff(const std::vector<uint8_t> &stuffed, const std::vector<int32_t> &sizes, size_t i, std::vector<uint8_t> &v);
+	static void stuff(std::vector<char> &stuffed, std::vector<int32_t> &sizes, const std::vector<char> &v);
+	static void unstuff(const std::vector<char> &stuffed, const std::vector<int32_t> &sizes, size_t i, std::vector<char> &v);
 
 	static std::ostream& print(std::ostream &os, const std::vector<int16_t> &v);
 	static std::ostream& print(std::ostream &os, const std::vector<uint16_t> &v);

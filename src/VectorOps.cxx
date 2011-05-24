@@ -40,10 +40,10 @@ std::ostream& VectorOps::print(std::ostream &os, const std::vector<int8_t> &v) {
 	return cout;
 }
 
-void VectorOps::stuff(std::vector<uint8_t> &stuffed, std::vector<int32_t> &sizes, const std::vector<uint8_t> &v)
+void VectorOps::stuff(std::vector<char> &stuffed, std::vector<int32_t> &sizes, const std::vector<char> &v)
 	{ stuffT(stuffed, sizes, v); }
 
-void VectorOps::unstuff(const std::vector<uint8_t> &stuffed, const std::vector<int32_t> &sizes, size_t i, std::vector<uint8_t> &v)
+void VectorOps::unstuff(const std::vector<char> &stuffed, const std::vector<int32_t> &sizes, size_t i, std::vector<char> &v)
 	{ unstuffT(stuffed, sizes, i, v); }
 
 
