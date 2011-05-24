@@ -46,6 +46,8 @@ public:
 	static std::ostream& print(std::ostream &os, const std::vector<uint16_t> &v);
 	static std::ostream& print(std::ostream &os, const std::vector<int32_t> &v);
 	static std::ostream& print(std::ostream &os, const std::vector<uint32_t> &v);
+	static std::ostream& print(std::ostream &os, const std::vector<float> &v);
+	static std::ostream& print(std::ostream &os, const std::vector<double> &v);
 
 	static void stuff(std::vector<char> &stuffed, std::vector<int32_t> &sizes, const std::vector<char> &v);
 	static void stuff(std::vector<int16_t> &stuffed, std::vector<int32_t> &sizes, const std::vector<int16_t> &v);

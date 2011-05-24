@@ -44,6 +44,8 @@ std::ostream& VectorOps::print(std::ostream &os, const std::vector<int16_t> &v) 
 std::ostream& VectorOps::print(std::ostream &os, const std::vector<uint16_t> &v) { return printT(os, v); }
 std::ostream& VectorOps::print(std::ostream &os, const std::vector<int32_t> &v) { return printT(os, v); }
 std::ostream& VectorOps::print(std::ostream &os, const std::vector<uint32_t> &v) { return printT(os, v); }
+std::ostream& VectorOps::print(std::ostream &os, const std::vector<float> &v) { return printT(os, v); }
+std::ostream& VectorOps::print(std::ostream &os, const std::vector<double> &v) { return printT(os, v); }
 
 void VectorOps::stuff(std::vector<char> &stuffed, std::vector<int32_t> &sizes, const std::vector<char> &v) { stuffT(stuffed, sizes, v); }
 void VectorOps::stuff(std::vector<int16_t> &stuffed, std::vector<int32_t> &sizes, const std::vector<int16_t> &v) { stuffT(stuffed, sizes, v); }
