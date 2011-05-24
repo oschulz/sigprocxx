@@ -27,33 +27,62 @@
 namespace sigpx {
 
 
-template<typename tp_Type> class Filter : std::unary_function<tp_Type, tp_Type> {
+template<typename From, typename To> class Mapper: public std::unary_function<From, To> {
 public:
-	virtual tp_Type operator()(tp_Type x) = 0;
+	virtual To operator()(From x) = 0;
 
-	// src and target may be the same vector
-	void operator()(const std::vector<tp_Type> &src, std::vector<tp_Type> &trg);
+	// src and target may be the same vector if types From and To are equal
+	void operator()(const std::vector<From> &src, std::vector<To> &trg);
 
-	std::vector<tp_Type> operator()(const std::vector<tp_Type> &src);
+	std::vector<To> operator()(const std::vector<From> &src);
 
-	virtual ~Filter() {}
+	virtual ~Mapper() {}
 };
 
 
-template<typename tp_Type> void Filter<tp_Type>::operator()(const std::vector<tp_Type> &src, std::vector<tp_Type> &trg) {
+template<typename From, typename To> void Mapper<From, To>::operator()(const std::vector<From> &src, std::vector<To> &trg) {
 	trg.resize(src.size());
 	for (size_t i=0; i<src.size(); ++i) trg[i] = operator()(src[i]);
 }
 
 
-template<typename tp_Type> std::vector<tp_Type> Filter<tp_Type>::operator()(const std::vector<tp_Type> &src)
-	{ std::vector<tp_Type> trg; operator()(src, trg); return trg; }
+template<typename From, typename To> std::vector<To> Mapper<From, To>::operator()(const std::vector<From> &src)
+	{ std::vector<To> trg; operator()(src, trg); return trg; }
+
+
+
+
+template<typename tp_Type> class Filter: public Mapper<tp_Type, tp_Type> {
+public:
+	virtual tp_Type operator()(tp_Type x) = 0;
+
+	virtual ~Filter() {}
+};
 
 
 } // namespace sigpx
 
 
 #ifdef __CINT__
+#pragma link C++ class sigpx::Mapper< int8_t,   int8_t>-;
+#pragma link C++ class sigpx::Mapper<uint8_t,  uint8_t>-;
+#pragma link C++ class sigpx::Mapper< int16_t,  int16_t>-;
+#pragma link C++ class sigpx::Mapper< int16_t,  int32_t>-;
+#pragma link C++ class sigpx::Mapper< int16_t,  float>-;
+#pragma link C++ class sigpx::Mapper< int16_t,  double>-;
+#pragma link C++ class sigpx::Mapper<uint16_t, uint16_t>-;
+#pragma link C++ class sigpx::Mapper< int32_t,  int32_t>-;
+#pragma link C++ class sigpx::Mapper< int32_t,  int16_t>-;
+#pragma link C++ class sigpx::Mapper< int32_t,  float>-;
+#pragma link C++ class sigpx::Mapper< int32_t,  double>-;
+#pragma link C++ class sigpx::Mapper<uint32_t, uint32_t>-;
+#pragma link C++ class sigpx::Mapper< int64_t,  int64_t>-;
+#pragma link C++ class sigpx::Mapper<uint64_t, uint64_t>-;
+#pragma link C++ class sigpx::Mapper< float,    float>-;
+#pragma link C++ class sigpx::Mapper< float,    double>-;
+#pragma link C++ class sigpx::Mapper< double,   double>-;
+#pragma link C++ class sigpx::Mapper< double,   float>-;
+
 #pragma link C++ class sigpx::Filter<int8_t>-;
 #pragma link C++ class sigpx::Filter<uint8_t>-;
 #pragma link C++ class sigpx::Filter<int16_t>-;
