@@ -26,11 +26,19 @@ using namespace std;
 
 namespace sigpx {
 
-std::ostream& VectorOps::print(std::ostream &os, const std::vector<uint8_t> &v)
-	{ return printT(os, v); }
+std::ostream& VectorOps::print(std::ostream &os, const std::vector<uint8_t> &v) {
+	cout << "(";
+	for (int i=0; i<v.size(); ++i) cout << ((i > 0) ? ", " : "") << uint16_t(v[i]);
+	cout << ")";
+	return cout;
+}
 
-std::ostream& VectorOps::print(std::ostream &os, const std::vector<int8_t> &v)
-	{ return printT(os, v); }
+std::ostream& VectorOps::print(std::ostream &os, const std::vector<int8_t> &v) {
+	cout << "(";
+	for (int i=0; i<v.size(); ++i) cout << ((i > 0) ? ", " : "") << int16_t(v[i]);
+	cout << ")";
+	return cout;
+}
 
 void VectorOps::stuff(std::vector<uint8_t> &stuffed, std::vector<int32_t> &sizes, const std::vector<uint8_t> &v)
 	{ stuffT(stuffed, sizes, v); }
