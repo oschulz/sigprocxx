@@ -84,6 +84,18 @@ public:
 };
 
 
+template<typename tp_Type> class LinCal: public Filter<tp_Type> {
+protected:
+	const tp_Type m_a;
+	const tp_Type m_b;
+public:
+	tp_Type a() const { return m_a; }
+	tp_Type b() const { return m_b; }
+	tp_Type operator()(tp_Type x) { return m_a * x + m_b; }
+	LinCal(tp_Type a, tp_Type b) : m_a(a), m_b(b) {}
+};
+
+
 template<typename tp_Type> class RCFilter: public Filter<tp_Type> {
 protected:
 	const tp_Type alpha;
@@ -138,6 +150,9 @@ public:
 #pragma link C++ class sigpx::MovingSum<int32_t, int32_t>-;
 #pragma link C++ class sigpx::MovingSum<float, float>-;
 #pragma link C++ class sigpx::MovingSum<float, double>-;
+
+#pragma link C++ class sigpx::LinCal<float>-;
+#pragma link C++ class sigpx::LinCal<double>-;
 
 #pragma link C++ class sigpx::RCFilter<float>-;
 #pragma link C++ class sigpx::RCFilter<double>-;
