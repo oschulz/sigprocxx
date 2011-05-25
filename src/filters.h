@@ -84,6 +84,38 @@ public:
 };
 
 
+template<typename tp_Type> class RCFilter: public Filter<tp_Type> {
+protected:
+	const tp_Type alpha;
+	tp_Type y_1;
+
+public:
+	inline tp_Type operator()(tp_Type x) {
+		tp_Type y = alpha * x + (1 - alpha) * y_1;
+		y_1 = y; return y;
+	}
+
+	RCFilter(tp_Type rc, tp_Type initWith = 0)
+		: alpha(1 / (1 + 1/rc)), y_1(initWith) {}
+};
+
+
+template<typename tp_Type> class CRFilter: public Filter<tp_Type> {
+protected:
+	const tp_Type alpha;
+	tp_Type x_1, y_1;
+
+public:
+	inline tp_Type operator()(tp_Type x) {
+		tp_Type y = alpha * (y_1 + x - x_1);
+		x_1 = x; y_1 = y; return y;
+	}
+
+	CRFilter(tp_Type rc, tp_Type initWith = 0)
+		: alpha(1 / (1 + 1/rc)), x_1(initWith), y_1(0) {}
+};
+
+
 } // namespace sigpx
 
 
@@ -106,6 +138,12 @@ public:
 #pragma link C++ class sigpx::MovingSum<int32_t, int32_t>-;
 #pragma link C++ class sigpx::MovingSum<float, float>-;
 #pragma link C++ class sigpx::MovingSum<float, double>-;
+
+#pragma link C++ class sigpx::RCFilter<float>-;
+#pragma link C++ class sigpx::RCFilter<double>-;
+
+#pragma link C++ class sigpx::CRFilter<float>-;
+#pragma link C++ class sigpx::CRFilter<double>-;
 
 #endif
 
