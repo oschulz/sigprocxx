@@ -90,7 +90,8 @@ public:
 
 template<typename tp_Type> class RangeIterator: public Iterator<tp_Type> {
 protected:
-	const tp_Type m_until, m_step;
+	const size_t m_until;
+	const tp_Type m_step;
 	size_t m_pos;
 public:
 	bool empty() const { return m_pos >= m_until; }
