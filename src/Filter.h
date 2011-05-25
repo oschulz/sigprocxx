@@ -99,7 +99,7 @@ public:
 
 	tp_Type next() { tp_Type result = m_pos; m_pos += m_step; return result; }
 
-	RangeIterator(tp_Type from, tp_Type until, tp_Type step = 1): m_until(until), m_step(step), m_pos(0) {}
+	RangeIterator(tp_Type from, tp_Type until, tp_Type step = 1): m_until(until), m_step(step), m_pos(from) {}
 };
 
 
