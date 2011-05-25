@@ -90,15 +90,15 @@ public:
 
 template<typename tp_Type> class RangeIterator: public Iterator<tp_Type> {
 protected:
-	const tp_Type until, step;
-	size_t pos;
+	const tp_Type m_until, m_step;
+	size_t m_pos;
 public:
-	bool empty() const { return pos >= until; }
-	size_t size() const { return (pos < until) ? (until - pos) / step : 0; }
+	bool empty() const { return m_pos >= m_until; }
+	size_t size() const { return (m_pos < m_until) ? (m_until - m_pos) / m_step : 0; }
 
-	tp_Type next() { tp_Type result = pos; pos += step; return result; }
+	tp_Type next() { tp_Type result = m_pos; m_pos += m_step; return result; }
 
-	RangeIterator(tp_Type from, tp_Type until, tp_Type step = 1): until(until), step(step), pos(0) {}
+	RangeIterator(tp_Type from, tp_Type until, tp_Type step = 1): m_until(until), m_step(step), m_pos(0) {}
 };
 
 
