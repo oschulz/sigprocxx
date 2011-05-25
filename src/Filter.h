@@ -102,6 +102,25 @@ public:
 };
 
 
+template<typename tp_Type> class VectorIterator: public Iterator<tp_Type> {
+protected:
+	const std::vector<tp_Type> &m_v;
+	const size_t m_until;
+	size_t m_pos;
+public:
+	bool empty() const { return m_pos >= m_until; }
+	size_t size() const { return m_until - m_pos; }
+
+	tp_Type next() { return m_v[m_pos++]; }
+
+	VectorIterator(const std::vector<tp_Type> &v, size_t from = 0)
+		: m_v(v), m_until(v.size()), m_pos(from) {}
+
+	VectorIterator(const std::vector<tp_Type> &v, size_t from, size_t until)
+		: m_v(v), m_until(until), m_pos(from) {}
+};
+
+
 } // namespace sigpx
 
 
@@ -138,6 +157,11 @@ public:
 #pragma link C++ class sigpx::RangeIterator<int32_t>-;
 #pragma link C++ class sigpx::RangeIterator<float>-;
 #pragma link C++ class sigpx::RangeIterator<double>-;
+
+#pragma link C++ class sigpx::VectorIterator<int16_t>-;
+#pragma link C++ class sigpx::VectorIterator<int32_t>-;
+#pragma link C++ class sigpx::VectorIterator<float>-;
+#pragma link C++ class sigpx::VectorIterator<double>-;
 #endif
 
 #endif // SIGPX_FILTER_H
