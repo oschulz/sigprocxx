@@ -23,6 +23,10 @@
 #include <cassert>
 #include <stdint.h>
 
+#include <TGraph.h>
+
+#include "filters.h"
+
 
 namespace sigpx {
 
@@ -97,6 +101,18 @@ public:
 	inline static void copy(const std::vector<double> &src, std::vector<float> &trg) { copyT(src, trg); }
 	inline static void copy(const std::vector<double> &src, std::vector<int16_t> &trg) { copyT(src, trg); }
 	inline static void copy(const std::vector<double> &src, std::vector<int32_t> &trg) { copyT(src, trg); }
+
+	template<typename tp_Type> static TGraph* graphT(const std::vector<tp_Type> &y);
+
+	static TGraph* graph(const std::vector<int16_t> &y);
+	static TGraph* graph(const std::vector<int32_t> &y);
+	static TGraph* graph(const std::vector<float> &y);
+	static TGraph* graph(const std::vector<double> &y);
+
+	static void draw(const std::vector<int16_t> &y, Option_t* chopt = "A*") { graph(y)->Draw(chopt); }
+	static void draw(const std::vector<int32_t> &y, Option_t* chopt = "A*") { graph(y)->Draw(chopt); }
+	static void draw(const std::vector<float> &y, Option_t* chopt = "A*") { graph(y)->Draw(chopt); }
+	static void draw(const std::vector<double> &y, Option_t* chopt = "A*") { graph(y)->Draw(chopt); }
 };
 
 
@@ -126,6 +142,12 @@ template<typename tp_Type> void VectorOps::unstuffT(const std::vector<tp_Type> &
 	size_t offset = 0; for (size_t j = 0; j < i; ++j) offset += sizes[j];
 	v.resize(sizes[i]);
 	for (size_t j = 0; j < v.size(); ++j) v[j] = stuffed[offset + j];
+}
+
+
+template<typename tp_Type> TGraph* VectorOps::graphT(const std::vector<tp_Type> &y) {
+	std::vector<tp_Type> x; RangeIterator<tp_Type>(0, y.size()).fillTo(x);
+	return new TGraph(x.size(), VectorOps::buffer(x), VectorOps::buffer(y));
 }
 
 

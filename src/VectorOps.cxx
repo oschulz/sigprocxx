@@ -55,5 +55,11 @@ void VectorOps::unstuff(const std::vector<char> &stuffed, const std::vector<int3
 void VectorOps::unstuff(const std::vector<int16_t> &stuffed, const std::vector<int32_t> &sizes, size_t i, std::vector<int16_t> &v) { unstuffT(stuffed, sizes, i, v); }
 void VectorOps::unstuff(const std::vector<int32_t> &stuffed, const std::vector<int32_t> &sizes, size_t i, std::vector<int32_t> &v) { unstuffT(stuffed, sizes, i, v); }
 
+TGraph* VectorOps::graph(const std::vector<int16_t> &y)
+	{ vector<int32_t> y2; copy(y, y2); return graphT(y2); }
+TGraph* VectorOps::graph(const std::vector<int32_t> &y) { return graphT(y); }
+TGraph* VectorOps::graph(const std::vector<float> &y) { return graphT(y); }
+TGraph* VectorOps::graph(const std::vector<double> &y) { return graphT(y); }
+
 
 } // namespace sigpx
