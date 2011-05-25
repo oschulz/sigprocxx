@@ -48,6 +48,23 @@ public:
 	static std::ostream& print(std::ostream &os, const std::vector<uint32_t> &v);
 	static std::ostream& print(std::ostream &os, const std::vector<float> &v);
 	static std::ostream& print(std::ostream &os, const std::vector<double> &v);
+	
+	inline static int8_t* buffer(std::vector<int8_t> &v) { return &(v[0]); }
+	inline static const int8_t* buffer(const std::vector<int8_t> &v) { return &(v[0]); }
+	inline static uint8_t* buffer(std::vector<uint8_t> &v) { return &(v[0]); }
+	inline static const uint8_t* buffer(const std::vector<uint8_t> &v) { return &(v[0]); }
+	inline static int16_t* buffer(std::vector<int16_t> &v) { return &(v[0]); }
+	inline static const int16_t* buffer(const std::vector<int16_t> &v) { return &(v[0]); }
+	inline static uint16_t* buffer(std::vector<uint16_t> &v) { return &(v[0]); }
+	inline static const uint16_t* buffer(const std::vector<uint16_t> &v) { return &(v[0]); }
+	inline static int32_t* buffer(std::vector<int32_t> &v) { return &(v[0]); }
+	inline static const int32_t* buffer(const std::vector<int32_t> &v) { return &(v[0]); }
+	inline static uint32_t* buffer(std::vector<uint32_t> &v) { return &(v[0]); }
+	inline static const uint32_t* buffer(const std::vector<uint32_t> &v) { return &(v[0]); }
+	inline static float* buffer(std::vector<float> &v) { return &(v[0]); }
+	inline static const float* buffer(const std::vector<float> &v) { return &(v[0]); }
+	inline static double* buffer(std::vector<double> &v) { return &(v[0]); }
+	inline static const double* buffer(const std::vector<double> &v) { return &(v[0]); }
 
 	static void stuff(std::vector<char> &stuffed, std::vector<int32_t> &sizes, const std::vector<char> &v);
 	static void stuff(std::vector<int16_t> &stuffed, std::vector<int32_t> &sizes, const std::vector<int16_t> &v);
