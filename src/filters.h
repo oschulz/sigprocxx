@@ -49,16 +49,16 @@ public:
 template<typename From, typename To> class MovingSum: public Iterator<To> {
 protected:
 	const std::vector<From> &m_v;
-	size_t m_size;
+	size_t m_N;
 	size_t m_pos;
 	To m_sum;
 	bool m_firstRun;
 
 	void init() {
-		if (m_pos + m_size-1 >= m_v.size()) m_pos = m_v.size();
+		if (m_pos + m_N-1 >= m_v.size()) m_pos = m_v.size();
 		else {
-			for (size_t i = 0; i < m_size-1; ++i) m_sum += m_v[m_pos + i];
-			m_pos += m_size-1;
+			for (size_t i = 0; i < m_N-1; ++i) m_sum += m_v[m_pos + i];
+			m_pos += m_N-1;
 		}
 	}
 
@@ -68,18 +68,18 @@ public:
 
 	To next() {
 		if (m_firstRun) m_firstRun = false;
-		else m_sum -= m_v[m_pos - m_size];
+		else m_sum -= m_v[m_pos - m_N];
 		m_sum += m_v[m_pos];
 		m_pos ++;
 		return m_sum;
 	}
 
-	MovingSum(const std::vector<From> &v, size_t size, size_t start)
-		: m_v(v), m_size(size), m_pos(start), m_sum(0), m_firstRun(true)
+	MovingSum(const std::vector<From> &v, size_t N, size_t start)
+		: m_v(v), m_N(N), m_pos(start), m_sum(0), m_firstRun(true)
 		{ init(); }
 
-	MovingSum(const std::vector<From> &v, size_t size)
-		: m_v(v), m_size(size), m_pos(0), m_sum(0), m_firstRun(true)
+	MovingSum(const std::vector<From> &v, size_t N)
+		: m_v(v), m_N(N), m_pos(0), m_sum(0), m_firstRun(true)
 		{ init(); }
 };
 
