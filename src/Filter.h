@@ -24,6 +24,8 @@
 #include <cassert>
 #include <stdint.h>
 
+#include <TH1.h>
+
 
 namespace sigpx {
 
@@ -76,6 +78,8 @@ public:
 	}
 
 	inline void fillTo(std::vector<tp_Type> &trg) { fillTo(trg, size()); }
+	inline void fillTo(TH1I &hist) { while (!empty()) hist.Fill(next()); }
+	inline void fillTo(TH1F &hist) { while (!empty()) hist.Fill(next()); }
 
 	inline std::vector<tp_Type> toVector()
 		{ std::vector<tp_Type> trg; fillTo(trg, size()); return trg; }
