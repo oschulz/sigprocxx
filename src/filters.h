@@ -46,6 +46,20 @@ public:
 };
 
 
+template<typename tp_Type> class RangeIterator: public Iterator<tp_Type> {
+protected:
+	const tp_Type until, step;
+	size_t pos;
+public:
+	bool empty() const { return pos >= until; }
+	size_t size() const { return (pos < until) ? (until - pos) / step : 0; }
+
+	tp_Type next() { tp_Type result = pos; pos += step; return result; }
+
+	RangeIterator(tp_Type from, tp_Type until, tp_Type step = 1): until(until), step(step), pos(0) {}
+};
+
+
 template<typename From, typename To> class MovingSum: public Iterator<To> {
 protected:
 	const std::vector<From> &m_v;
@@ -133,6 +147,10 @@ public:
 #pragma link C++ class sigpx::SumFilter<int64_t>-;
 #pragma link C++ class sigpx::SumFilter<float>-;
 #pragma link C++ class sigpx::SumFilter<double>-;
+
+#pragma link C++ class sigpx::RangeIterator<int32_t>-;
+#pragma link C++ class sigpx::RangeIterator<float>-;
+#pragma link C++ class sigpx::RangeIterator<double>-;
 
 #pragma link C++ class sigpx::MovingSum<int16_t, int32_t>-;
 #pragma link C++ class sigpx::MovingSum<int32_t, int32_t>-;

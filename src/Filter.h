@@ -75,7 +75,10 @@ public:
 		for (size_t i=0; i<n; ++i) trg[i] = next();
 	}
 
-	inline void fillTo(std::vector<tp_Type> &trg) { fillTo(trg, size());	}
+	inline void fillTo(std::vector<tp_Type> &trg) { fillTo(trg, size()); }
+
+	inline std::vector<tp_Type> toVector()
+		{ std::vector<tp_Type> trg; fillTo(trg, size()); return trg; }
 	
 	virtual ~Iterator() {}
 };
