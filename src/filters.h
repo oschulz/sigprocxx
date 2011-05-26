@@ -92,7 +92,7 @@ public:
 	tp_Type a() const { return m_a; }
 	tp_Type b() const { return m_b; }
 	tp_Type operator()(tp_Type x) { return m_a * x + m_b; }
-	LinCal(tp_Type a, tp_Type b) : m_a(a), m_b(b) {}
+	LinCal(tp_Type ca, tp_Type cb) : m_a(ca), m_b(cb) {}
 };
 
 
