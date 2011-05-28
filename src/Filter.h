@@ -162,6 +162,11 @@ public:
 		: m_v(v), m_until(until), m_pos(from) {}
 };
 
+typedef VectorIterator<int16_t> VIs;
+typedef VectorIterator<int32_t> VIi;
+typedef VectorIterator<float> VIf;
+typedef VectorIterator<double> VId;
+
 
 } // namespace sigpx
 
@@ -204,6 +209,11 @@ public:
 #pragma link C++ class sigpx::VectorIterator<int32_t>-;
 #pragma link C++ class sigpx::VectorIterator<float>-;
 #pragma link C++ class sigpx::VectorIterator<double>-;
+
+#pragma link C++ typedef sigpx::VIs;
+#pragma link C++ typedef sigpx::VIi;
+#pragma link C++ typedef sigpx::VIf;
+#pragma link C++ typedef sigpx::VId;
 #endif
 
 #endif // SIGPX_FILTER_H
