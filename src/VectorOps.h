@@ -102,12 +102,23 @@ public:
 	inline static void copy(const std::vector<double> &src, std::vector<int16_t> &trg) { copyT(src, trg); }
 	inline static void copy(const std::vector<double> &src, std::vector<int32_t> &trg) { copyT(src, trg); }
 
+	template<typename tp_Type> static TGraph* graphT(const std::vector<tp_Type> &x, const std::vector<tp_Type> &y);
 	template<typename tp_Type> static TGraph* graphT(const std::vector<tp_Type> &y);
+
+	static TGraph* graph(const std::vector<int16_t> &x, const std::vector<int16_t> &y);
+	static TGraph* graph(const std::vector<int32_t> &x, const std::vector<int32_t> &y);
+	static TGraph* graph(const std::vector<float> &x, const std::vector<float> &y);
+	static TGraph* graph(const std::vector<double> &x, const std::vector<double> &y);
 
 	static TGraph* graph(const std::vector<int16_t> &y);
 	static TGraph* graph(const std::vector<int32_t> &y);
 	static TGraph* graph(const std::vector<float> &y);
 	static TGraph* graph(const std::vector<double> &y);
+
+	static void draw(const std::vector<int16_t> &x, const std::vector<int16_t> &y, Option_t* chopt = "A*") { graph(x, y)->Draw(chopt); }
+	static void draw(const std::vector<int32_t> &x, const std::vector<int32_t> &y, Option_t* chopt = "A*") { graph(x, y)->Draw(chopt); }
+	static void draw(const std::vector<float> &x, const std::vector<float> &y, Option_t* chopt = "A*") { graph(x, y)->Draw(chopt); }
+	static void draw(const std::vector<double> &x, const std::vector<double> &y, Option_t* chopt = "A*") { graph(x, y)->Draw(chopt); }
 
 	static void draw(const std::vector<int16_t> &y, Option_t* chopt = "A*") { graph(y)->Draw(chopt); }
 	static void draw(const std::vector<int32_t> &y, Option_t* chopt = "A*") { graph(y)->Draw(chopt); }
@@ -145,9 +156,15 @@ template<typename tp_Type> void VectorOps::unstuffT(const std::vector<tp_Type> &
 }
 
 
+template<typename tp_Type> TGraph* VectorOps::graphT(const std::vector<tp_Type> &x, const std::vector<tp_Type> &y) {
+	assert(x.size() == y.size());
+	return new TGraph(x.size(), VectorOps::buffer(x), VectorOps::buffer(y));
+}
+
+
 template<typename tp_Type> TGraph* VectorOps::graphT(const std::vector<tp_Type> &y) {
 	std::vector<tp_Type> x; RangeIterator<tp_Type>(0, y.size()).fillTo(x);
-	return new TGraph(x.size(), VectorOps::buffer(x), VectorOps::buffer(y));
+	return graphT(x, y);
 }
 
 
