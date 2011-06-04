@@ -43,7 +43,12 @@ protected:
 	State1 *m_state;
 
 public:
-	WlDecomp1(const std::string &waveletSpec, int maxLevel = 0);
+	double normFactor(int index) const;
+
+	void getForwardFunc(size_t size,	int scale, int trans, std::vector<float> &func) const;
+	void getInverseFunc(size_t size,	int scale, int trans, std::vector<float> &func) const;
+
+	WlDecomp1(const std::string &waveletSpec, int maxLevel, const std::string &coeffStorage);
 	virtual ~WlDecomp1();
 };
 
@@ -55,8 +60,14 @@ public:
 	
 	int apply(std::vector<Num> &data) const;
 	int applyInv(std::vector<Num> &data) const;
+	void getIndices(const std::vector<Num> &data, std::vector<int> &indices) const;
+	void getIndexAxis(const std::vector<Num> &data, std::vector<int> &axis) const;
+	void getCoeffLocation(const std::vector<Num> &data, int index, size_t &from, size_t &to, size_t &stride) const;
+	void exportCoeffs(const std::vector<Num> &src, const std::string &coeffStorage, std::vector<Num> &trg) const;
+	void importCoeffs(std::vector<Num> &trg, const std::string &coeffStorage, const std::vector<Num> &src) const;
 
-	WlDecomp1I(const std::string &waveletSpec, int maxLevel = 0): WlDecomp1(waveletSpec) {}
+	WlDecomp1I(const std::string &waveletSpec, int maxLevel = 0, const std::string &coeffStorage = "nested")
+		: WlDecomp1(waveletSpec, maxLevel, coeffStorage) {}
 };
 
 
@@ -66,8 +77,14 @@ public:
 	
 	int apply(std::vector<Num> &data) const;
 	int applyInv(std::vector<Num> &data) const;
+	void getIndices(const std::vector<Num> &data, std::vector<int> &indices) const;
+	void getIndexAxis(const std::vector<Num> &data, std::vector<int> &axis) const;
+	void getCoeffLocation(const std::vector<Num> &data, int index, size_t &from, size_t &to, size_t &stride) const;
+	void exportCoeffs(const std::vector<Num> &src, const std::string &coeffStorage, std::vector<Num> &trg) const;
+	void importCoeffs(std::vector<Num> &trg, const std::string &coeffStorage, const std::vector<Num> &src) const;
 
-	WlDecomp1F(const std::string &waveletSpec, int maxLevel = 0): WlDecomp1(waveletSpec) {}
+	WlDecomp1F(const std::string &waveletSpec, int maxLevel = 0, const std::string &coeffStorage = "nested")
+		: WlDecomp1(waveletSpec, maxLevel, coeffStorage) {}
 };
 
 
