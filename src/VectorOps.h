@@ -26,6 +26,7 @@
 #include <TGraph.h>
 
 #include "filters.h"
+#include "VectorView.h"
 
 
 namespace sigpx {
@@ -33,7 +34,8 @@ namespace sigpx {
 
 class VectorOps {
 public:
-	template<typename tp_Type> static std::ostream& printT(std::ostream &os, const std::vector<tp_Type> &v);
+	template<typename tp_Type> static std::ostream& printT(std::ostream &os, const std::vector<tp_Type> &v)
+		{ return VectorIterator<tp_Type>(v).print(os); }
 
 	template<typename tp_Type> static void stuffT(std::vector<tp_Type> &stuffed, std::vector<int32_t> &sizes, const std::vector<tp_Type> &v);
 
@@ -125,15 +127,6 @@ public:
 	static void draw(const std::vector<float> &y, Option_t* chopt = "A*") { graph(y)->Draw(chopt); }
 	static void draw(const std::vector<double> &y, Option_t* chopt = "A*") { graph(y)->Draw(chopt); }
 };
-
-
-template<typename tp_Type> std::ostream& VectorOps::printT(std::ostream &os, const std::vector<tp_Type> &v) {
-	using namespace std;
-	cout << "(";
-	for (size_t i = 0; i < v.size(); ++i) cout << ((i > 0) ? ", " : "") << v[i];
-	cout << ")";
-	return cout;
-}
 
 
 template<typename tp_Type> void VectorOps::stuffT(std::vector<tp_Type> &stuffed, std::vector<int32_t> &sizes, const std::vector<tp_Type> &v) {

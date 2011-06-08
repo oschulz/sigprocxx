@@ -23,6 +23,8 @@
 #include <limits>
 #include <cstddef>
 #include <cassert>
+#include <iostream>
+#include <sstream>
 #include <stdint.h>
 
 #include <TH1.h>
@@ -122,11 +124,39 @@ public:
 		return acc;
 	}
 
+	std::ostream& print(std::ostream &os);
+	std::string toString();
+
 	inline std::vector<tp_Type> toVector()
 		{ std::vector<tp_Type> trg; fillTo(trg, size()); return trg; }
 	
 	virtual ~Iterator() {}
 };
+
+
+template<typename tp_Type> std::ostream& Iterator<tp_Type>::print(std::ostream &os) {
+	using namespace std;
+	bool first = true;
+	os << "(";
+	if (sizeof(tp_Type) > 1) while (!empty()) {
+		os << (!first ? ", " : "") << next();
+		first = false;
+	} while (!empty()) {
+		os << (!first ? ", " : "") << int(next());
+		first = false;
+	}
+	os << ")";
+	return os;
+}
+
+
+template<typename tp_Type> std::string Iterator<tp_Type>::toString() {
+	using namespace std;
+	stringstream out;
+	print(out);
+	return out.str();
+}
+
 
 
 template<typename tp_Type> class RangeIterator: public Iterator<tp_Type> {

@@ -48,7 +48,11 @@ public:
 	tp_Type& operator[](size_t index) { return m_v[m_from + index * m_stride]; }
 	
 	VectorIterator<tp_Type> iterator() const;
-	
+
+	std::ostream& print(std::ostream &os) { return iterator().print(os); }
+
+	std::string toString() { return iterator().toString(); }
+
 	VectorView(std::vector<tp_Type> &v, size_t fromIdx = 0)
 		: m_v(v), m_until(v.size()), m_from(fromIdx), m_stride(1) {}
 
