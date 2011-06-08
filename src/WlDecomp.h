@@ -20,7 +20,9 @@
 
 #include <string>
 #include <vector>
-#include "stdint.h"
+#include <stdint.h>
+
+#include "VectorView.h"
 
 
 namespace sigpx {
@@ -63,6 +65,7 @@ public:
 	void getIndices(const std::vector<Num> &data, std::vector<int> &indices) const;
 	void getIndexAxis(const std::vector<Num> &data, std::vector<int> &axis) const;
 	void getCoeffLocation(const std::vector<Num> &data, int index, size_t &from, size_t &to, size_t &stride) const;
+	VectorView<int32_t> getCoeffs(std::vector<Num> &data, int index) const;
 	void exportCoeffs(const std::vector<Num> &src, const std::string &coeffStorage, std::vector<Num> &trg) const;
 	void importCoeffs(std::vector<Num> &trg, const std::string &coeffStorage, const std::vector<Num> &src) const;
 
@@ -80,6 +83,7 @@ public:
 	void getIndices(const std::vector<Num> &data, std::vector<int> &indices) const;
 	void getIndexAxis(const std::vector<Num> &data, std::vector<int> &axis) const;
 	void getCoeffLocation(const std::vector<Num> &data, int index, size_t &from, size_t &to, size_t &stride) const;
+	VectorView<float> getCoeffs(std::vector<Num> &data, int index) const;
 	void exportCoeffs(const std::vector<Num> &src, const std::string &coeffStorage, std::vector<Num> &trg) const;
 	void importCoeffs(std::vector<Num> &trg, const std::string &coeffStorage, const std::vector<Num> &src) const;
 
