@@ -37,11 +37,9 @@ protected:
 public:
 	bool empty() const { return m_from >= m_until; }
 	size_t size() const { return (m_until - m_from) / m_stride; }
-	
+
 	const tp_Type* buffer() const { return &(m_v[0]); }
-	tp_Type* buffer() { return &(m_v[0]); }
-	size_t from() const { return m_from; }
-	size_t until() const { return m_until; }
+	tp_Type* buffer() { return &(operator[](0)); }
 	size_t stride() const { return m_stride; }
 
 	const tp_Type& operator[](size_t index) const { return m_v[m_from + index * m_stride]; }
@@ -49,11 +47,32 @@ public:
 	
 	VectorIterator<tp_Type> iterator() const;
 
+	inline VectorView<tp_Type>& operator=(const VectorView<tp_Type> &src) {
+		size_t n = size();
+		assert(n == src.size());
+		for (size_t i=0; i < n; ++i) (*this)[i] = src[i];
+		return *this;
+	}
+
+	inline VectorView<tp_Type>& operator=(const tp_Type &x) {
+		size_t n = size();
+		for (size_t i=0; i < n; ++i) (*this)[i] = x;
+		return *this;
+	}
+	
+	inline void fillTo(std::vector<tp_Type> &trg, size_t n) { iterator().fillTo(trg, n); }
+	inline void fillTo(std::vector<tp_Type> &trg) { iterator().fillTo(trg); }
+	inline void fillTo(TH1I &hist) { iterator().fillTo(hist); }
+	inline void fillTo(TH1F &hist) { iterator().fillTo(hist); }
+
 	std::ostream& print(std::ostream &os) { return iterator().print(os); }
 
 	std::string toString() { return iterator().toString(); }
 
-	VectorView(std::vector<tp_Type> &v, size_t fromIdx = 0)
+	VectorView(std::vector<tp_Type> &v)
+		: m_v(v), m_until(v.size()), m_from(0), m_stride(1) {}
+
+	VectorView(std::vector<tp_Type> &v, size_t fromIdx)
 		: m_v(v), m_until(v.size()), m_from(fromIdx), m_stride(1) {}
 
 	VectorView(std::vector<tp_Type> &v, size_t fromIdx, size_t untilIdx)
@@ -61,6 +80,22 @@ public:
 
 	VectorView(std::vector<tp_Type> &v, size_t fromIdx, size_t untilIdx, size_t strideLen)
 		: m_v(v), m_until(untilIdx), m_from(fromIdx), m_stride(strideLen) {}
+
+	VectorView(const VectorView<tp_Type> &v)
+		: m_v(v.m_v), m_until(v.m_until), m_from(v.m_from), m_stride(v.m_stride) {}
+
+	VectorView(const VectorView<tp_Type> &v, size_t fromIdx)
+		: m_v(v.m_v), m_until(v.m_until),
+		  m_from(v.m_from + fromIdx * v.m_stride), m_stride(v.m_stride) {}
+
+	VectorView(const VectorView<tp_Type> &v, size_t fromIdx, size_t untilIdx)
+		: m_v(v.m_v), m_until(v.m_from + untilIdx * v.m_stride),
+		  m_from(v.m_from + fromIdx * v.m_stride), m_stride(v.m_stride) {}
+
+	VectorView(const VectorView<tp_Type> &v, size_t fromIdx, size_t untilIdx, size_t strideLen)
+		: m_v(v.m_v), m_until(v.m_from + untilIdx * v.m_stride * strideLen),
+		  m_from(v.m_from + fromIdx * v.m_stride * strideLen),
+		  m_stride(v.m_stride * strideLen) {}
 };
 
 typedef VectorView<int16_t> VVs;
