@@ -19,6 +19,7 @@
 #define SIGPX_VECTORVIEW_H
 
 #include "Filter.h"
+#include "util.h"
 
 
 namespace sigpx {
@@ -82,6 +83,20 @@ public:
 	inline void fillTo(std::vector<tp_Type> &trg) { iterator().fillTo(trg); }
 	inline void fillTo(TH1I &hist) { iterator().fillTo(hist); }
 	inline void fillTo(TH1F &hist) { iterator().fillTo(hist); }
+
+	inline void filterWith(const std::vector<tp_Type> &kernel, std::vector<tp_Type> &trg) {
+		ssize_t n = size();
+		ssize_t kn = kernel.size();
+		ssize_t offs = - kn / 2;
+		trg.resize(n);
+		
+		for (ssize_t i = 0; i < n; ++i) {
+			tp_Type acc = 0;
+			for (ssize_t j = 0; j < kn; ++j)
+				acc += operator[](Util::indexExtMirror(n, i + offs + j)) * kernel[j];
+			trg[i] = acc;
+		}
+	}
 
 	std::ostream& print(std::ostream &os) { return iterator().print(os); }
 
