@@ -59,7 +59,25 @@ public:
 		for (size_t i=0; i < n; ++i) (*this)[i] = x;
 		return *this;
 	}
+
+	inline VectorView<tp_Type>& operator+=(const tp_Type &x) {
+		size_t n = size();
+		for (size_t i=0; i < n; ++i) (*this)[i] += x;
+		return *this;
+	}
+
+	inline VectorView<tp_Type>& operator*=(const tp_Type &x) {
+		size_t n = size();
+		for (size_t i=0; i < n; ++i) (*this)[i] *= x;
+		return *this;
+	}
 	
+	inline tp_Type max() { return iterator().max(); }
+	inline tp_Type min() { return iterator().min(); }
+	inline double sum() { return iterator().sum(); }
+	inline double mean() { return iterator().mean(); }
+	inline double sprod(const std::vector<tp_Type> v) { return iterator().sprod(v); }
+
 	inline void fillTo(std::vector<tp_Type> &trg, size_t n) { iterator().fillTo(trg, n); }
 	inline void fillTo(std::vector<tp_Type> &trg) { iterator().fillTo(trg); }
 	inline void fillTo(TH1I &hist) { iterator().fillTo(hist); }
