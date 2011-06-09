@@ -108,7 +108,7 @@ public:
 	}
 
 	RCFilter(tp_Type rc, tp_Type initWith = 0)
-		: alpha(1 / (1 + 1/rc)), y_1(initWith) {}
+		: alpha(1 / (1 + rc)), y_1(initWith) {}
 };
 
 
