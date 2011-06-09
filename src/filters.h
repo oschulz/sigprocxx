@@ -32,7 +32,7 @@ protected:
 public:
 	const tp_Type last() const { return m_last; }
 	tp_Type operator()(tp_Type x) { tp_Type res = x - m_last; m_last = x; return res; }
-	DiffFilter() : m_last(0)  {}
+	DiffFilter(tp_Type initWith = 0) : m_last(initWith)  {}
 };
 
 
@@ -42,7 +42,7 @@ protected:
 public:
 	const tp_Type sum() const { return m_sum; }
 	tp_Type operator()(tp_Type x) { m_sum += x; return m_sum; }
-	SumFilter() : m_sum(0)  {}
+	SumFilter(tp_Type initWith = 0) : m_sum(initWith)  {}
 };
 
 
