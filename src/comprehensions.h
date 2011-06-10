@@ -22,6 +22,8 @@
 #include <cstddef>
 #include <stdint.h>
 
+#include <TLine.h>
+
 #include "Filter.h"
 #include "util.h"
 
@@ -110,6 +112,93 @@ public:
 };
 
 
+
+template<typename tp_Type> class LinearStatistics {
+protected:
+	int32_t m_n;
+	tp_Type m_fromX, m_fromY, m_toX, m_toY;
+	tp_Type m_sumX, m_sumXSqr, m_sumY, m_sumYSqr, m_sumXY;
+	
+	bool m_first;
+	
+	static tp_Type nan() { return std::numeric_limits<tp_Type>::quiet_NaN(); }
+
+public:
+	int32_t n() const { return m_n; }
+
+	tp_Type fromX() const { return m_fromX; }
+	tp_Type fromY() const { return m_fromY; }
+	tp_Type toX() const { return m_toX; }
+	tp_Type toY() const { return m_toY; }
+
+	tp_Type sumX() const { return m_sumX; }
+	tp_Type sumY() const { return m_sumY; }
+	tp_Type sumXSqr() const { return m_sumXSqr; }
+	tp_Type sumYSqr() const { return m_sumYSqr; }
+	tp_Type sumXY() const { return m_sumXY; }
+
+	tp_Type meanX() const { return sumX() / n(); }
+	tp_Type meanY() const { return sumY() / n(); }
+	tp_Type varianceX() const { return sumXSqr() / n() - meanX() * meanX(); }
+	tp_Type varianceY() const { return sumYSqr() / n() - meanY() * meanY(); }
+	tp_Type covarianceXY() const { return sumXY() / n() - meanX() * meanY(); }
+
+	tp_Type slope() const { return covarianceXY() / varianceX(); }
+	tp_Type offset() const { return meanY() - slope() * meanX(); }
+	
+	TLine* toLine(Color_t lineColor = kBlack);
+	void draw(Option_t* chopt = "", Color_t lineColor = kBlack);
+
+	LinearStatistics(Iterator<tp_Type> &itX, Iterator<tp_Type> &itY)
+		: m_n(0),
+		  m_fromX(nan()), m_fromY(nan()), m_toX(nan()), m_toY(nan()),
+		  m_sumX(nan()), m_sumXSqr(nan()), m_sumY(nan()), m_sumYSqr(nan()), m_sumXY(nan()),
+		  m_first(true)
+	{
+		while (!itX.empty() && !itY.empty()) {
+			tp_Type x = itX.next();
+			tp_Type y = itY.next();
+
+			if (m_first) {
+				m_sumX = 0; m_sumXSqr = 0; m_sumY = 0, m_sumYSqr = 0, m_sumXY = 0,
+				m_fromX = x; m_fromY = y;
+				m_first = false;
+			}
+			m_toX = x; m_toY = y;
+			
+			m_n += 1;
+	
+			m_sumX += x;
+			m_sumXSqr += x*x;
+			m_sumY += y;
+			m_sumYSqr += y*y;
+			m_sumXY += x*y;
+		}
+	}
+
+	LinearStatistics()
+		: m_n(0),
+		  m_fromX(nan()), m_fromY(nan()), m_toX(nan()), m_toY(nan()),
+		  m_sumX(nan()), m_sumXSqr(nan()), m_sumY(nan()), m_sumYSqr(nan()), m_sumXY(nan()),
+		  m_first(false)
+	{}
+};
+
+
+template<typename tp_Type> TLine* LinearStatistics<tp_Type>::toLine(Color_t lineColor) {
+	TLine *line = new TLine(fromX(), offset() + slope() * fromX(), toX(), offset() + slope() * toX());
+	line->SetLineColor(lineColor);
+	return line;
+}
+
+
+template<typename tp_Type> void LinearStatistics<tp_Type>::draw(Option_t* chopt, Color_t lineColor) {
+	toLine(lineColor)->Draw(chopt);
+}
+
+
+
+
 } // namespace sigpx
 
 
@@ -128,6 +217,9 @@ public:
 #pragma link C++ class sigpx::FindIntersect<int32_t>-;
 #pragma link C++ class sigpx::FindIntersect<float>-;
 #pragma link C++ class sigpx::FindIntersect<double>-;
+
+#pragma link C++ class sigpx::LinearStatistics<float>-;
+#pragma link C++ class sigpx::LinearStatistics<double>-;
 #endif
 
 #endif // SIGPX_COMPREHENSIONS_H
