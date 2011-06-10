@@ -30,7 +30,7 @@ namespace sigpx {
 
 template<typename tp_Type> class FindMax {
 protected:
-	size_t m_pos; tp_Type m_result; size_t m_index;
+	tp_Type m_result; size_t m_index;
 
 public:
 	tp_Type result() const { return m_result; }
@@ -39,10 +39,11 @@ public:
 	FindMax(Iterator<tp_Type> &it)
 		: m_result(std::numeric_limits<tp_Type>::min()), m_index(0)
 	{
+		size_t pos = 0;
 		while(!it.empty()) {
 			tp_Type x = it.next();
-			if (x > m_result) { m_result = x; m_index = m_pos; }
-			++m_pos;
+			if (x > m_result) { m_result = x; m_index = pos; }
+			++pos;
 		}
 	}
 };
@@ -50,7 +51,7 @@ public:
 
 template<typename tp_Type> class FindMin {
 protected:
-	size_t m_pos; tp_Type m_result; size_t m_index;
+	tp_Type m_result; size_t m_index;
 
 public:
 	tp_Type result() const { return m_result; }
@@ -59,10 +60,11 @@ public:
 	FindMin(Iterator<tp_Type> &it)
 		: m_result(std::numeric_limits<tp_Type>::max()), m_index(0)
 	{
+		size_t pos = 0;
 		while(!it.empty()) {
 			tp_Type x = it.next();
-			if (x < m_result) { m_result = x; m_index = m_pos; }
-			++m_pos;
+			if (x < m_result) { m_result = x; m_index = pos; }
+			++pos;
 		}
 	}
 };
