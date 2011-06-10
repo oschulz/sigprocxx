@@ -131,16 +131,16 @@ public:
 
 template<typename tp_Type> class RangeIterator: public Iterator<tp_Type> {
 protected:
-	const size_t m_until;
+	const tp_Type m_until;
 	const tp_Type m_step;
-	size_t m_pos;
+	tp_Type m_current;
 public:
-	bool empty() const { return m_pos >= m_until; }
-	size_t size() const { return (m_pos < m_until) ? (m_until - m_pos) / m_step : 0; }
+	bool empty() const { return m_current >= m_until; }
+	size_t size() const { return (m_current < m_until) ? (m_until - m_current) / m_step : 0; }
 
-	tp_Type next() { tp_Type result = m_pos; m_pos += m_step; return result; }
+	tp_Type next() { tp_Type result = m_current; m_current += m_step; return result; }
 
-	RangeIterator(tp_Type from, tp_Type until, tp_Type step = 1): m_until(until), m_step(step), m_pos(from) {}
+	RangeIterator(tp_Type from, tp_Type until, tp_Type step = 1): m_until(until), m_step(step), m_current(from) {}
 };
 
 
