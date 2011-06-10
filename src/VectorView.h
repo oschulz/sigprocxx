@@ -26,6 +26,7 @@ namespace sigpx {
 
 
 template<typename tp_Type> class VectorIterator;
+template<typename tp_Type> class RevVectorIterator;
 
 
 
@@ -47,6 +48,7 @@ public:
 	tp_Type& operator[](size_t index) { return m_v[m_from + index * m_stride]; }
 	
 	VectorIterator<tp_Type> iterator() const;
+	RevVectorIterator<tp_Type> revIterator() const;
 
 	inline VectorView<tp_Type>& operator=(const VectorView<tp_Type> &src) {
 		size_t n = size();
@@ -167,8 +169,40 @@ typedef VectorIterator<double> VId;
 
 
 
+template<typename tp_Type> class RevVectorIterator: public Iterator<tp_Type> {
+protected:
+	const std::vector<tp_Type> &m_v;
+	const ssize_t m_from;
+	const ssize_t m_stride;
+	ssize_t m_pos;
+public:
+	bool empty() const { return m_pos < m_from; }
+	size_t size() const { return (m_pos - m_from) / m_stride + 1; }
+	
+	tp_Type next() { tp_Type result = m_v[m_pos]; m_pos -= m_stride; return result; }
+
+	RevVectorIterator(const std::vector<tp_Type> &v, size_t fromIdx = 0)
+		: m_v(v), m_from(fromIdx), m_stride(1), m_pos((v.size() - m_stride + 1 - m_from) / m_stride * m_stride + m_from) {}
+
+	RevVectorIterator(const std::vector<tp_Type> &v, size_t fromIdx, size_t untilIdx)
+		: m_v(v), m_from(fromIdx), m_stride(1), m_pos((untilIdx - m_stride + 1 - m_from) / m_stride * m_stride + m_from) {}
+
+	RevVectorIterator(const std::vector<tp_Type> &v, size_t fromIdx, size_t untilIdx, size_t strideLen)
+		: m_v(v), m_from(fromIdx), m_stride(strideLen), m_pos((untilIdx - m_stride + 1 - m_from) / m_stride * m_stride + m_from) {}
+};
+
+typedef RevVectorIterator<int16_t> RVIs;
+typedef RevVectorIterator<int32_t> RVIi;
+typedef RevVectorIterator<float> RVIf;
+typedef RevVectorIterator<double> RVId;
+
+
+
 template<typename tp_Type> VectorIterator<tp_Type> VectorView<tp_Type>::iterator() const
 	{ return VectorIterator<tp_Type>(m_v, m_from, m_until, m_stride); }
+
+template<typename tp_Type> RevVectorIterator<tp_Type> VectorView<tp_Type>::revIterator() const
+	{ return RevVectorIterator<tp_Type>(m_v, m_from, m_until, m_stride); }
 
 
 
@@ -196,6 +230,15 @@ template<typename tp_Type> VectorIterator<tp_Type> VectorView<tp_Type>::iterator
 #pragma link C++ typedef sigpx::VIf;
 #pragma link C++ typedef sigpx::VId;
 
+#pragma link C++ class sigpx::RevVectorIterator<int16_t>-;
+#pragma link C++ class sigpx::RevVectorIterator<int32_t>-;
+#pragma link C++ class sigpx::RevVectorIterator<float>-;
+#pragma link C++ class sigpx::RevVectorIterator<double>-;
+
+#pragma link C++ typedef sigpx::RVIs;
+#pragma link C++ typedef sigpx::RVIi;
+#pragma link C++ typedef sigpx::RVIf;
+#pragma link C++ typedef sigpx::RVId;
 #endif
 
 #endif // SIGPX_VECTORVIEW_H
