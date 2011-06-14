@@ -20,9 +20,11 @@
 
 #include <limits>
 #include <cstddef>
+#include <cmath>
 #include <stdint.h>
 
 #include <TLine.h>
+#include <TMath.h>
 
 #include "Filter.h"
 #include "util.h"
@@ -139,13 +141,28 @@ public:
 
 	tp_Type meanX() const { return sumX() / n(); }
 	tp_Type meanY() const { return sumY() / n(); }
-	tp_Type varianceX() const { return sumXSqr() / n() - meanX() * meanX(); }
-	tp_Type varianceY() const { return sumYSqr() / n() - meanY() * meanY(); }
-	tp_Type covarianceXY() const { return sumXY() / n() - meanX() * meanY(); }
-
-	tp_Type slope() const { return covarianceXY() / varianceX(); }
-	tp_Type offset() const { return meanY() - slope() * meanX(); }
+	tp_Type varX() const { return sumXSqr() / n() - meanX() * meanX(); }
+	tp_Type varY() const { return sumYSqr() / n() - meanY() * meanY(); }
+	tp_Type covXY() const { return sumXY() / n() - meanX() * meanY(); }
 	
+	tp_Type errX() const { return sqrt( (sumXSqr() - sumX() * meanX()) / (n() - 1) ); }
+	tp_Type errY() const { return sqrt( (sumYSqr() - sumY() * meanY()) / (n() - 1) ); }
+	
+	tp_Type corrXY() const { return covXY() / sqrt(varX() * varY()); }
+
+
+	tp_Type slope() const { return covXY() / varX(); }
+	tp_Type offset() const { return meanY() - slope() * meanX(); }
+
+	tp_Type slopeErr(tp_Type confLevel = 0) const {
+		tp_Type korr = (confLevel > 0) ? TMath::StudentQuantile((1 - confLevel)/2, n(), false) : 1;
+		return korr * sqrt( (varX()*varY() - covXY()*covXY()) / (n() - 2) ) / varX();
+	}
+
+	tp_Type offsetErr(tp_Type confLevel = 0) const
+		{ return slopeErr(confLevel) * sqrt(sumXSqr() / n()); }
+
+		
 	TLine* toLine(Color_t lineColor = kBlack);
 	void draw(Option_t* chopt = "", Color_t lineColor = kBlack);
 
