@@ -74,6 +74,8 @@ public:
 		for (size_t i=0; i < n; ++i) (*this)[i] *= x;
 		return *this;
 	}
+
+	inline ssize_t find(tp_Type x) { return iterator().find(x); }
 	
 	inline tp_Type max() { return iterator().max(); }
 	inline tp_Type min() { return iterator().min(); }

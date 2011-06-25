@@ -84,6 +84,13 @@ public:
 	inline void fillTo(TH1I &hist) { while (!empty()) hist.Fill(next()); }
 	inline void fillTo(TH1F &hist) { while (!empty()) hist.Fill(next()); }
 	
+	// Iterator will be advanced after this
+	inline ssize_t find(tp_Type x) {
+		ssize_t pos = 0;
+		while (!empty()) { if (next() == x) return pos; else ++pos; }
+		return -1;
+	}
+
 	// Iterator will be empty after this
 	inline tp_Type max() {
 		tp_Type result = std::numeric_limits<tp_Type>::min();
