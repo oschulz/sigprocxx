@@ -166,12 +166,15 @@ public:
 	TLine* toLine(Color_t lineColor = kBlack);
 	TLine* draw(Option_t* chopt = "", Color_t lineColor = kBlack);
 
-	LinearStatistics(Iterator<tp_Type> &itX, Iterator<tp_Type> &itY)
-		: m_n(0),
-		  m_fromX(nan()), m_fromY(nan()), m_toX(nan()), m_toY(nan()),
-		  m_sumX(nan()), m_sumXSqr(nan()), m_sumY(nan()), m_sumYSqr(nan()), m_sumXY(nan()),
-		  m_first(true)
-	{
+	void clear() {
+		m_n = 0;
+		m_fromX = nan(); m_fromY = nan(); m_toX = nan(); m_toY = nan();
+		m_sumX = nan(); m_sumXSqr = nan(); m_sumY = nan(); m_sumYSqr = nan(); m_sumXY = nan();
+		m_first = true;
+	}
+	
+	LinearStatistics(Iterator<tp_Type> &itX, Iterator<tp_Type> &itY) {
+		clear();
 		while (!itX.empty() && !itY.empty()) {
 			tp_Type x = itX.next();
 			tp_Type y = itY.next();
@@ -194,11 +197,7 @@ public:
 	}
 
 	LinearStatistics()
-		: m_n(0),
-		  m_fromX(nan()), m_fromY(nan()), m_toX(nan()), m_toY(nan()),
-		  m_sumX(nan()), m_sumXSqr(nan()), m_sumY(nan()), m_sumYSqr(nan()), m_sumXY(nan()),
-		  m_first(false)
-	{}
+		{ clear(); }
 };
 
 
