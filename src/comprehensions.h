@@ -164,7 +164,7 @@ public:
 
 		
 	TLine* toLine(Color_t lineColor = kBlack);
-	void draw(Option_t* chopt = "", Color_t lineColor = kBlack);
+	TLine* draw(Option_t* chopt = "", Color_t lineColor = kBlack);
 
 	LinearStatistics(Iterator<tp_Type> &itX, Iterator<tp_Type> &itY)
 		: m_n(0),
@@ -209,8 +209,10 @@ template<typename tp_Type> TLine* LinearStatistics<tp_Type>::toLine(Color_t line
 }
 
 
-template<typename tp_Type> void LinearStatistics<tp_Type>::draw(Option_t* chopt, Color_t lineColor) {
-	toLine(lineColor)->Draw(chopt);
+template<typename tp_Type> TLine* LinearStatistics<tp_Type>::draw(Option_t* chopt, Color_t lineColor) {
+	TLine *line = toLine(lineColor);
+	line->Draw(chopt);
+	return line;
 }
 
 
