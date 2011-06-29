@@ -117,15 +117,15 @@ public:
 	static TGraph* graph(const std::vector<float> &y);
 	static TGraph* graph(const std::vector<double> &y);
 
-	static void draw(const std::vector<int16_t> &x, const std::vector<int16_t> &y, Option_t* chopt = "A*", Color_t lineColor = kBlack);
-	static void draw(const std::vector<int32_t> &x, const std::vector<int32_t> &y, Option_t* chopt = "A*", Color_t lineColor = kBlack);
-	static void draw(const std::vector<float> &x, const std::vector<float> &y, Option_t* chopt = "A*", Color_t lineColor = kBlack);
-	static void draw(const std::vector<double> &x, const std::vector<double> &y, Option_t* chopt = "A*", Color_t lineColor = kBlack);
+	static TGraph* draw(const std::vector<int16_t> &x, const std::vector<int16_t> &y, Option_t* chopt = "A*", Color_t lineColor = kBlack, const TString &name = "", const TString &title = "");
+	static TGraph* draw(const std::vector<int32_t> &x, const std::vector<int32_t> &y, Option_t* chopt = "A*", Color_t lineColor = kBlack, const TString &name = "", const TString &title = "");
+	static TGraph* draw(const std::vector<float> &x, const std::vector<float> &y, Option_t* chopt = "A*", Color_t lineColor = kBlack, const TString &name = "", const TString &title = "");
+	static TGraph* draw(const std::vector<double> &x, const std::vector<double> &y, Option_t* chopt = "A*", Color_t lineColor = kBlack, const TString &name = "", const TString &title = "");
 
-	static void draw(const std::vector<int16_t> &y, Option_t* chopt = "A*", Color_t lineColor = kBlack);
-	static void draw(const std::vector<int32_t> &y, Option_t* chopt = "A*", Color_t lineColor = kBlack);
-	static void draw(const std::vector<float> &y, Option_t* chopt = "A*", Color_t lineColor = kBlack);
-	static void draw(const std::vector<double> &y, Option_t* chopt = "A*", Color_t lineColor = kBlack);
+	static TGraph* draw(const std::vector<int16_t> &y, Option_t* chopt = "A*", Color_t lineColor = kBlack, const TString &name = "", const TString &title = "");
+	static TGraph* draw(const std::vector<int32_t> &y, Option_t* chopt = "A*", Color_t lineColor = kBlack, const TString &name = "", const TString &title = "");
+	static TGraph* draw(const std::vector<float> &y, Option_t* chopt = "A*", Color_t lineColor = kBlack, const TString &name = "", const TString &title = "");
+	static TGraph* draw(const std::vector<double> &y, Option_t* chopt = "A*", Color_t lineColor = kBlack, const TString &name = "", const TString &title = "");
 };
 
 

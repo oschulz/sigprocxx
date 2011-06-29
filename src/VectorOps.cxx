@@ -56,23 +56,23 @@ TGraph* VectorOps::graph(const std::vector<float> &y) { return graphT(y); }
 TGraph* VectorOps::graph(const std::vector<double> &y) { return graphT(y); }
 
 
-void VectorOps::draw(const std::vector<int16_t> &x, const std::vector<int16_t> &y, Option_t* chopt, Color_t lineColor)
-	{ TGraph *g = graph(x, y); g->SetLineColor(lineColor); g->Draw(chopt); }
-void VectorOps::draw(const std::vector<int32_t> &x, const std::vector<int32_t> &y, Option_t* chopt, Color_t lineColor)
-	{ TGraph *g = graph(x, y); g->SetLineColor(lineColor); g->Draw(chopt); }
-void VectorOps::draw(const std::vector<float> &x, const std::vector<float> &y, Option_t* chopt, Color_t lineColor)
-	{ TGraph *g = graph(x, y); g->SetLineColor(lineColor); g->Draw(chopt); }
-void VectorOps::draw(const std::vector<double> &x, const std::vector<double> &y, Option_t* chopt, Color_t lineColor)
-	{ TGraph *g = graph(x, y); g->SetLineColor(lineColor); g->Draw(chopt); }
+TGraph* VectorOps::draw(const std::vector<int16_t> &x, const std::vector<int16_t> &y, Option_t* chopt, Color_t lineColor, const TString &name, const TString &title)
+	{ TGraph *g = graph(x, y); g->SetLineColor(lineColor); if (name.Length() > 0) g->SetName(name); if (title.Length() > 0) g->SetTitle(title); g->Draw(chopt); return g; }
+TGraph* VectorOps::draw(const std::vector<int32_t> &x, const std::vector<int32_t> &y, Option_t* chopt, Color_t lineColor, const TString &name, const TString &title)
+	{ TGraph *g = graph(x, y); g->SetLineColor(lineColor); if (name.Length() > 0) g->SetName(name); if (title.Length() > 0) g->SetTitle(title); g->Draw(chopt); return g; }
+TGraph* VectorOps::draw(const std::vector<float> &x, const std::vector<float> &y, Option_t* chopt, Color_t lineColor, const TString &name, const TString &title)
+	{ TGraph *g = graph(x, y); g->SetLineColor(lineColor); if (name.Length() > 0) g->SetName(name); if (title.Length() > 0) g->SetTitle(title); g->Draw(chopt); return g; }
+TGraph* VectorOps::draw(const std::vector<double> &x, const std::vector<double> &y, Option_t* chopt, Color_t lineColor, const TString &name, const TString &title)
+	{ TGraph *g = graph(x, y); g->SetLineColor(lineColor); if (name.Length() > 0) g->SetName(name); if (title.Length() > 0) g->SetTitle(title); g->Draw(chopt); return g; }
 
-void VectorOps::draw(const std::vector<int16_t> &y, Option_t* chopt, Color_t lineColor)
-	{ TGraph *g = graph(y); g->SetLineColor(lineColor); g->Draw(chopt); }
-void VectorOps::draw(const std::vector<int32_t> &y, Option_t* chopt, Color_t lineColor)
-	{ TGraph *g = graph(y); g->SetLineColor(lineColor); g->Draw(chopt); }
-void VectorOps::draw(const std::vector<float> &y, Option_t* chopt, Color_t lineColor)
-	{ TGraph *g = graph(y); g->SetLineColor(lineColor); g->Draw(chopt); }
-void VectorOps::draw(const std::vector<double> &y, Option_t* chopt, Color_t lineColor)
-	{ TGraph *g = graph(y); g->SetLineColor(lineColor); g->Draw(chopt); }
+TGraph* VectorOps::draw(const std::vector<int16_t> &y, Option_t* chopt, Color_t lineColor, const TString &name, const TString &title)
+	{ TGraph *g = graph(y); g->SetLineColor(lineColor); if (name.Length() > 0) g->SetName(name); if (title.Length() > 0) g->SetTitle(title); g->Draw(chopt); return g; }
+TGraph* VectorOps::draw(const std::vector<int32_t> &y, Option_t* chopt, Color_t lineColor, const TString &name, const TString &title)
+	{ TGraph *g = graph(y); g->SetLineColor(lineColor); if (name.Length() > 0) g->SetName(name); if (title.Length() > 0) g->SetTitle(title); g->Draw(chopt); return g; }
+TGraph* VectorOps::draw(const std::vector<float> &y, Option_t* chopt, Color_t lineColor, const TString &name, const TString &title)
+	{ TGraph *g = graph(y); g->SetLineColor(lineColor); if (name.Length() > 0) g->SetName(name); if (title.Length() > 0) g->SetTitle(title); g->Draw(chopt); return g; }
+TGraph* VectorOps::draw(const std::vector<double> &y, Option_t* chopt, Color_t lineColor, const TString &name, const TString &title)
+	{ TGraph *g = graph(y); g->SetLineColor(lineColor); if (name.Length() > 0) g->SetName(name); if (title.Length() > 0) g->SetTitle(title); g->Draw(chopt); return g; }
 
 
 } // namespace sigpx
