@@ -69,29 +69,49 @@ public:
 
 template<typename tp_Type> class Iterator {
 public:
+	
+	///	@brief	Returns 0 if no data/entries
 	virtual bool empty() const { return size() > 0; }
+	
+	///	@brief	Pure virtual, (Returns number of steps left to the maximum of the iterations in child class)
 	virtual size_t size() const = 0;
 
+	///	@brief	Pure virtual. (Returns number of steps left to the maximum of the iterations in child class)
 	virtual tp_Type next() = 0;
 	
+	///	@brief	Resizes trg to n and fill it with data of attached vector
+	///
+	///	@par	trg	Vector to be filled
+	///	@par	n	Number of entries to be filled into trg
 	inline void fillTo(std::vector<tp_Type> &trg, size_t n) {
 		assert(n <= size());
 		trg.resize(n);
 		for (size_t i=0; i<n; ++i) trg[i] = next();
 	}
 
+	///	@brief	Fills trig with data of attached vector
+	///	@par	trg	Vector to be filled
 	inline void fillTo(std::vector<tp_Type> &trg) { fillTo(trg, size()); }
+	
+	///	@brief	Fills TH1I histogram with data of attached vector
+	///	@par	hist	Histogram to be filled
 	inline void fillTo(TH1I &hist) { while (!empty()) hist.Fill(next()); }
+
+	///	@brief	Fills TH1F histogram with data of attached vector
+	///	@par	hist	Histogram to be filled
 	inline void fillTo(TH1F &hist) { while (!empty()) hist.Fill(next()); }
 	
-	// Iterator will be advanced after this
+	///	@brief	Finds position of value in attached vector
+	///	@par	x	Value to be searched for
+	/// Iterator will be advanced to the point where the value was found after this.
 	inline ssize_t find(tp_Type x) {
 		ssize_t pos = 0;
 		while (!empty()) { if (next() == x) return pos; else ++pos; }
 		return -1;
 	}
 
-	// Iterator will be empty after this
+	///	@brief	Find maximum of attached vector
+	/// Iterator will be empty after this
 	inline tp_Type max() {
 		tp_Type result = std::numeric_limits<tp_Type>::min();
 		while(!empty()) {
@@ -101,7 +121,8 @@ public:
 		return result;
 	}
 
-	// Iterator will be empty after this
+	///	@brief	Find minimum of  attached vector
+	/// Iterator will be empty after this
 	inline tp_Type min() {
 		tp_Type result = std::numeric_limits<tp_Type>::max();
 		while(!empty()) {
@@ -111,32 +132,43 @@ public:
 		return result;
 	}
 
-	// Iterator will be empty after this
+	///	@brief	Returns sum of entries from current entry till end of iteration
+	/// Iterator will be empty after this
 	inline double sum() {
 		double result = 0;
 		while(!empty()) result += double(next());
 		return result;
 	}
-
-	// Iterator will be empty after this
+	
+	///	@brief	Returns mean of entries from current iteration till end of iteration
+	/// Iterator will be empty after this
 	inline double mean() {
 		double n = size();
 		return sum() / n;
 	}
 
-	// Iterator will be advanced after this
+	///	@brief	Returns scalar product of  vector v with attached vector
+	///	@par	v	Vector to do scalar product with
+	/// Iterator will be advanced after this by size of v steps
 	inline double sprod(const std::vector<tp_Type> v) {
 		double acc = 0;
 		for (size_t i = 0; i < v.size(); ++i) acc += next() * v[i];
 		return acc;
 	}
 
+	///	@brief	Prints contents of attached vector to stream
+	///	@par	os	Output stream to print to
 	std::ostream& print(std::ostream &os);
+	
+	///	@brief	Returns contents of attached vector as string
 	std::string toString();
 
+	///	@brief	Returns copy of  attached vector (from current iteration to end of iteration)
 	inline std::vector<tp_Type> toVector()
 		{ std::vector<tp_Type> trg; fillTo(trg, size()); return trg; }
 	
+		
+	///	@brief	Destructor
 	virtual ~Iterator() {}
 };
 

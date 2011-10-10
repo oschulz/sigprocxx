@@ -144,22 +144,50 @@ typedef VectorView<double> VVd;
 
 template<typename tp_Type> class VectorIterator: public Iterator<tp_Type> {
 protected:
+	/// vector to be iterated over 
 	const std::vector<tp_Type> &m_v;
+	/// maximum entry of m_v to iterate to (upper bound)
 	const size_t m_until;
+	/// current position
 	size_t m_pos;
+	/// step/stride width of iteration step
 	const size_t m_stride;
 public:
+	
+	///	@brief	Returns 0 if iteration has reached or exceeds the end 
 	bool empty() const { return m_pos >= m_until; }
+	
+	///	@brief	Returns number of steps left to the maximum of the iterations
 	size_t size() const { return (m_until - m_pos) / m_stride; }
 	
+	///	@brief	Returns current value and afterwards increases iterator by stepsize
 	tp_Type next() { tp_Type result = m_v[m_pos]; m_pos += m_stride; return result; }
 
+	///	@brief	Constructor
+	///	
+	///	@par	v	Vector
+	///	@par	fromIdx	Idx where to start iteration
+	///
+	///	Step length set to 1, iterates to end of v.
 	VectorIterator(const std::vector<tp_Type> &v, size_t fromIdx = 0)
 		: m_v(v), m_until(v.size()), m_pos(fromIdx), m_stride(1) {}
 
+	///	@brief	Constructor
+	///	
+	///	@par	v	Vector
+	///	@par	fromIdx	Idx where to start iteration
+	///	@par	untilIdx	Entry where iteration ends
+	///
+	///	Step length set to 1.
 	VectorIterator(const std::vector<tp_Type> &v, size_t fromIdx, size_t untilIdx)
 		: m_v(v), m_until(untilIdx), m_pos(fromIdx), m_stride(1) {}
 
+	///	@brief	Constructor
+	///	
+	///	@par	v	Vector
+	///	@par	fromIdx	Idx where to start iteration
+	///	@par	untilIdx	Entry where iteration ends
+	///	@par	strideLen	Step/stride length of iteration step
 	VectorIterator(const std::vector<tp_Type> &v, size_t fromIdx, size_t untilIdx, size_t strideLen)
 		: m_v(v), m_until(untilIdx), m_pos(fromIdx), m_stride(strideLen) {}
 };
