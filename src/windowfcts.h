@@ -25,17 +25,24 @@
 
 namespace sigpx {
 
-
+///@brief	class containing Hamming Window
 template<typename tp_Type> class HammingWindow: public Iterator<tp_Type> {
 protected:
+///	Size of the Hamming Window
 	const size_t m_N;
+///	current position in Window; initialized with 0
 	size_t m_pos;
 public:
 	bool empty() const { return m_pos >= m_N; }
+///	@brief	Returns remaining window size
 	size_t size() const { return m_N - m_pos; }
 
+///	@brief	Returns value of the current position and incremets m_pos after that
 	tp_Type next() { return 0.54 - 0.46 * cos((2*TMath::Pi() * m_pos++) / (m_N - 1)); }
 
+///	@brief	Construtor
+///	@param	n	size of the Hamming Window
+///	Initializes a Hamming Window of size n and current position 0
 	HammingWindow(size_t n): m_N(n), m_pos(0) {}
 };
 
