@@ -43,7 +43,7 @@ public:
 
 	template<typename tp_Type, typename tp_Type2> inline static void copyT(const std::vector<tp_Type> &src, std::vector<tp_Type2> &trg) {
 		trg.resize(src.size());
-		for (size_t i = 0; i < src.size(); ++i) trg[i] = src[i];
+		for (size_t i = 0; i < src.size(); ++i) trg[i] = (tp_Type2)src[i];
 	}
 
 	static std::ostream& print(std::ostream &os, const std::vector<int8_t> &v);

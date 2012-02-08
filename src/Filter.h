@@ -205,7 +205,7 @@ protected:
 	tp_Type m_current;
 public:
 	bool empty() const { return m_current >= m_until; }
-	size_t size() const { return (m_current < m_until) ? (m_until - m_current) / m_step : 0; }
+	size_t size() const { return (m_current < m_until) ? size_t ( (m_until - m_current) / m_step ) : 0; }
 
 	tp_Type next() { tp_Type result = m_current; m_current += m_step; return result; }
 
