@@ -42,7 +42,7 @@ public:
 	size_t index() const { return m_index; }
 
 	FindMax(Iterator<tp_Type> &it)
-		: m_result(std::numeric_limits<tp_Type>::min()), m_index(0)
+		: m_result(std::numeric_limits<tp_Type>::min()>0?-std::numeric_limits<tp_Type>::max():std::numeric_limits<tp_Type>::min()), m_index(0)
 	{
 		size_t pos = 0;
 		while(!it.empty()) {
