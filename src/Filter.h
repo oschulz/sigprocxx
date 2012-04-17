@@ -113,7 +113,8 @@ public:
 	///	@brief	Find maximum of attached vector
 	/// Iterator will be empty after this
 	inline tp_Type max() {
-		tp_Type result = std::numeric_limits<tp_Type>::min();
+		if (empty()) return 0;
+		tp_Type result = tp_Type(next());
 		while(!empty()) {
 			tp_Type x = tp_Type(next());
 			if (x > result) result = x;
@@ -124,7 +125,8 @@ public:
 	///	@brief	Find minimum of  attached vector
 	/// Iterator will be empty after this
 	inline tp_Type min() {
-		tp_Type result = std::numeric_limits<tp_Type>::max();
+		if (empty()) return 0;
+		tp_Type result = tp_Type(next());
 		while(!empty()) {
 			tp_Type x = tp_Type(next());
 			if (x < result) result = x;
