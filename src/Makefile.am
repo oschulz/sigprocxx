@@ -13,6 +13,7 @@ libsigprocxx_la_SOURCES = \
 	Dither.cxx \
 	Filter.cxx \
 	VectorOps.cxx \
+	VectorView.cxx \
 	VLEncoding.cxx \
 	ZigZagEnc.cxx
 
@@ -24,6 +25,7 @@ libsigprocxx_la_headers = \
 	Dither.h \
 	Filter.h \
 	VectorOps.h \
+	VectorView.h \
 	VLEncoding.h \
 	ZigZagEnc.h
 

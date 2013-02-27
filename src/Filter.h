@@ -144,38 +144,6 @@ public:
 };
 
 
-template<typename tp_Type> class VectorIterator: public Iterator<tp_Type> {
-protected:
-	const std::vector<tp_Type> &m_v;
-	const size_t m_until;
-	size_t m_pos;
-	const size_t m_stride;
-public:
-	bool empty() const { return m_pos >= m_until; }
-	size_t size() const { return (m_until - m_pos) / m_stride; }
-	
-	size_t from() const { return m_pos; }
-	size_t until() const { return m_until; }
-	size_t stride() const { return m_stride; }
-
-	tp_Type next() { return m_v[m_pos += m_stride]; }
-
-	VectorIterator(const std::vector<tp_Type> &v, size_t fromIdx = 0)
-		: m_v(v), m_until(v.size()), m_pos(fromIdx), m_stride(1) {}
-
-	VectorIterator(const std::vector<tp_Type> &v, size_t fromIdx, size_t untilIdx)
-		: m_v(v), m_until(untilIdx), m_pos(fromIdx), m_stride(1) {}
-
-	VectorIterator(const std::vector<tp_Type> &v, size_t fromIdx, size_t untilIdx, size_t strideLen)
-		: m_v(v), m_until(untilIdx), m_pos(fromIdx), m_stride(strideLen) {}
-};
-
-typedef VectorIterator<int16_t> VIs;
-typedef VectorIterator<int32_t> VIi;
-typedef VectorIterator<float> VIf;
-typedef VectorIterator<double> VId;
-
-
 } // namespace sigpx
 
 
@@ -212,16 +180,6 @@ typedef VectorIterator<double> VId;
 #pragma link C++ class sigpx::RangeIterator<int32_t>-;
 #pragma link C++ class sigpx::RangeIterator<float>-;
 #pragma link C++ class sigpx::RangeIterator<double>-;
-
-#pragma link C++ class sigpx::VectorIterator<int16_t>-;
-#pragma link C++ class sigpx::VectorIterator<int32_t>-;
-#pragma link C++ class sigpx::VectorIterator<float>-;
-#pragma link C++ class sigpx::VectorIterator<double>-;
-
-#pragma link C++ typedef sigpx::VIs;
-#pragma link C++ typedef sigpx::VIi;
-#pragma link C++ typedef sigpx::VIf;
-#pragma link C++ typedef sigpx::VId;
 #endif
 
 #endif // SIGPX_FILTER_H
