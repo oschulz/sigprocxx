@@ -5,21 +5,15 @@ MAINTAINERCLEANFILES = Makefile.in
 
 lib_LTLIBRARIES = libsigprocxx.la
 
-libsigprocxx_la_SOURCES = \
-	HelloWorld.cxx
+libsigprocxx_la_SOURCES = 
 
-libsigprocxx_la_headers = \
-	HelloWorld.h
+libsigprocxx_la_headers = 
 
 pkginclude_HEADERS = $(libsigprocxx_la_headers)
 
-bin_PROGRAMS = sigprocxx
+# bin_PROGRAMS = 
 
-noinst_PROGRAMS =
-
-sigprocxx_SOURCES = sigprocxx.cxx
-sigprocxx_LDADD = libsigprocxx.la
-# sigprocxx_LDFLAGS = -static
+# noinst_PROGRAMS =
 
 
 libsigprocxx_la_SOURCES += libsigprocxx-rdict.cxx
