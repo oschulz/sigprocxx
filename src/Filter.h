@@ -113,7 +113,7 @@ public:
 	///	@brief	Find maximum of attached vector
 	/// Iterator will be empty after this
 	inline tp_Type max() {
-		if (empty()) return 0;
+		if (empty()) return std::numeric_limits<tp_Type>::quiet_NaN();
 		tp_Type result = tp_Type(next());
 		while(!empty()) {
 			tp_Type x = tp_Type(next());
@@ -125,7 +125,7 @@ public:
 	///	@brief	Find minimum of  attached vector
 	/// Iterator will be empty after this
 	inline tp_Type min() {
-		if (empty()) return 0;
+		if (empty()) return std::numeric_limits<tp_Type>::quiet_NaN();
 		tp_Type result = tp_Type(next());
 		while(!empty()) {
 			tp_Type x = tp_Type(next());
