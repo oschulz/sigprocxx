@@ -3,32 +3,32 @@ MAINTAINERCLEANFILES = Makefile.in
 
 # EXTRA_DIST = some extra files, e.g. test-data
 
-lib_LTLIBRARIES = libtemplate-project.la
+lib_LTLIBRARIES = libsigprocxx.la
 
-libtemplate_project_la_SOURCES = \
+libsigprocxx_la_SOURCES = \
 	HelloWorld.cxx
 
-libtemplate_project_la_headers = \
+libsigprocxx_la_headers = \
 	HelloWorld.h
 
-pkginclude_HEADERS = $(libtemplate_project_la_headers)
+pkginclude_HEADERS = $(libsigprocxx_la_headers)
 
-bin_PROGRAMS = template-project
+bin_PROGRAMS = sigprocxx
 
 noinst_PROGRAMS =
 
-template_project_SOURCES = template-project.cxx
-template_project_LDADD = libtemplate-project.la
-# template_project_LDFLAGS = -static
+sigprocxx_SOURCES = sigprocxx.cxx
+sigprocxx_LDADD = libsigprocxx.la
+# sigprocxx_LDFLAGS = -static
 
 
-libtemplate_project_la_SOURCES += libtemplate-project-rdict.cxx
+libsigprocxx_la_SOURCES += libsigprocxx-rdict.cxx
 
-libtemplate-project-rdict.cxx: $(libtemplate_project_la_headers) template-project-LinkDef.h
+libsigprocxx-rdict.cxx: $(libsigprocxx_la_headers) sigprocxx-LinkDef.h
 	$(ROOTCINT) -f $@ -c -p $(CPPFLAGS) $(CXXFLAGS) $+
 
 rootmapdir = $(libdir)
-rootmap_DATA = .libs/libtemplate-project.rootmap
+rootmap_DATA = .libs/libsigprocxx.rootmap
 
-.libs/libtemplate-project.rootmap: libtemplate-project.la | $(libtemplate_project_la_headers) template-project-LinkDef.h
-	$(RLIBMAP) -o $@ -l .libs/libtemplate-project@SHLIBEXT@ -c $|
+.libs/libsigprocxx.rootmap: libsigprocxx.la | $(libsigprocxx_la_headers) sigprocxx-LinkDef.h
+	$(RLIBMAP) -o $@ -l .libs/libsigprocxx@SHLIBEXT@ -c $|

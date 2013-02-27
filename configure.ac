@@ -1,6 +1,6 @@
 # Initialization
 
-AC_INIT([Template Project], [0], [], [template-project])
+AC_INIT([SigProCxx], [0], [], [sigprocxx])
 
 AC_CONFIG_MACRO_DIR([m4])
 
@@ -29,8 +29,8 @@ AC_CONFIG_HEADERS([config.h])
 
 AC_CONFIG_FILES([
 	Makefile
-	template-project.pc
-	template-project-config
+	sigprocxx.pc
+	sigprocxx-config
 	src/Makefile
 	doc/Makefile doc/Doxyfile
 ])
