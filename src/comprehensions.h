@@ -18,6 +18,7 @@
 #ifndef SIGPX_COMPREHENSIONS_H
 #define SIGPX_COMPREHENSIONS_H
 
+#include <stdexcept>
 #include <limits>
 #include <cstddef>
 #include <cmath>
@@ -41,9 +42,10 @@ public:
 	tp_Type result() const { return m_result; }
 	size_t index() const { return m_index; }
 
-	FindMax(Iterator<tp_Type> &it)
-		: m_result(std::numeric_limits<tp_Type>::min()>0?-std::numeric_limits<tp_Type>::max():std::numeric_limits<tp_Type>::min()), m_index(0)
-	{
+	FindMax(Iterator<tp_Type> &it) {
+		if (it.empty()) throw std::invalid_argument("Cannot find maximum of empty iterator");
+		m_result = it.next();
+		m_index = 0;
 		size_t pos = 0;
 		while(!it.empty()) {
 			tp_Type x = it.next();
@@ -62,9 +64,10 @@ public:
 	tp_Type result() const { return m_result; }
 	size_t index() const { return m_index; }
 
-	FindMin(Iterator<tp_Type> &it)
-		: m_result(std::numeric_limits<tp_Type>::max()), m_index(0)
-	{
+	FindMin(Iterator<tp_Type> &it) {
+		if (it.empty()) throw std::invalid_argument("Cannot find minimum of empty iterator");
+		m_result = it.next();
+		m_index = 0;
 		size_t pos = 0;
 		while(!it.empty()) {
 			tp_Type x = it.next();
