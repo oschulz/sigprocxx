@@ -34,6 +34,12 @@ pkginclude_HEADERS = $(libsigprocxx_la_headers)
 # noinst_PROGRAMS =
 
 
+if WITH_BLITZWAVE
+libsigprocxx_la_SOURCES += WlDecomp.cxx
+libsigprocxx_la_headers += WlDecomp.h
+endif # WITH_BLITZWAVE
+
+
 libsigprocxx_la_SOURCES += libsigprocxx-rdict.cxx
 
 libsigprocxx-rdict.cxx: $(libsigprocxx_la_headers) sigprocxx-LinkDef.h
