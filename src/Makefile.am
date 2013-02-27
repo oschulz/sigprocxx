@@ -5,9 +5,11 @@ MAINTAINERCLEANFILES = Makefile.in
 
 lib_LTLIBRARIES = libsigprocxx.la
 
-libsigprocxx_la_SOURCES = 
+libsigprocxx_la_SOURCES = \
+	VectorIO.cxx
 
-libsigprocxx_la_headers = 
+libsigprocxx_la_headers = \
+	VectorIO.h
 
 pkginclude_HEADERS = $(libsigprocxx_la_headers)
 
