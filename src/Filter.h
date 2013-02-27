@@ -21,6 +21,7 @@
 #include <functional>
 #include <vector>
 #include <cstddef>
+#include <cassert>
 #include <stdint.h>
 
 
@@ -60,6 +61,26 @@ public:
 };
 
 
+
+template<typename tp_Type> class Iterator {
+public:
+	virtual bool empty() const { return size() > 0; }
+	virtual size_t size() const = 0;
+
+	virtual tp_Type next() = 0;
+	
+	inline void fillTo(std::vector<tp_Type> &trg, size_t n) {
+		assert(n <= size());
+		trg.resize(n);
+		for (size_t i=0; i<n; ++i) trg[i] = next();
+	}
+
+	inline void fillTo(std::vector<tp_Type> &trg) { fillTo(trg, size());	}
+	
+	virtual ~Iterator() {}
+};
+
+
 } // namespace sigpx
 
 
@@ -85,6 +106,13 @@ public:
 #pragma link C++ class sigpx::Filter<int64_t>-;
 #pragma link C++ class sigpx::Filter<float>-;
 #pragma link C++ class sigpx::Filter<double>-;
+
+#pragma link C++ class sigpx::Iterator<int8_t>-;
+#pragma link C++ class sigpx::Iterator<int16_t>-;
+#pragma link C++ class sigpx::Iterator<int32_t>-;
+#pragma link C++ class sigpx::Iterator<int64_t>-;
+#pragma link C++ class sigpx::Iterator<float>-;
+#pragma link C++ class sigpx::Iterator<double>-;
 #endif
 
 #endif // SIGPX_FILTER_H
