@@ -8,6 +8,7 @@ lib_LTLIBRARIES = libsigprocxx.la
 libsigprocxx_la_SOURCES = \
 	util.cxx \
 	DiffFilter.cxx \
+	Dither.cxx \
 	Filter.cxx \
 	VectorOps.cxx \
 	VLEncoding.cxx \
@@ -16,6 +17,7 @@ libsigprocxx_la_SOURCES = \
 libsigprocxx_la_headers = \
 	util.h \
 	DiffFilter.h \
+	Dither.h \
 	Filter.h \
 	VectorOps.h \
 	VLEncoding.h \
