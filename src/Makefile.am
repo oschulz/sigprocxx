@@ -6,8 +6,9 @@ MAINTAINERCLEANFILES = Makefile.in
 lib_LTLIBRARIES = libsigprocxx.la
 
 libsigprocxx_la_SOURCES = \
-	util.cxx \
+	comprehensions.cxx \
 	filters.cxx \
+	util.cxx \
 	windowfcts.cxx \
 	Dither.cxx \
 	Filter.cxx \
@@ -16,8 +17,9 @@ libsigprocxx_la_SOURCES = \
 	ZigZagEnc.cxx
 
 libsigprocxx_la_headers = \
-	util.h \
+	comprehensions.h \
 	filters.h \
+	util.h \
 	windowfcts.h \
 	Dither.h \
 	Filter.h \
