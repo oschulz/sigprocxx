@@ -20,6 +20,7 @@
 
 #include <functional>
 #include <vector>
+#include <limits>
 #include <cstddef>
 #include <cassert>
 #include <stdint.h>
@@ -80,6 +81,46 @@ public:
 	inline void fillTo(std::vector<tp_Type> &trg) { fillTo(trg, size()); }
 	inline void fillTo(TH1I &hist) { while (!empty()) hist.Fill(next()); }
 	inline void fillTo(TH1F &hist) { while (!empty()) hist.Fill(next()); }
+	
+	// Iterator will be empty after this
+	inline tp_Type max() {
+		tp_Type result = std::numeric_limits<tp_Type>::min();
+		while(!empty()) {
+			tp_Type x = tp_Type(next());
+			if (x > result) result = x;
+		}
+		return result;
+	}
+
+	// Iterator will be empty after this
+	inline tp_Type min() {
+		tp_Type result = std::numeric_limits<tp_Type>::max();
+		while(!empty()) {
+			tp_Type x = tp_Type(next());
+			if (x < result) result = x;
+		}
+		return result;
+	}
+
+	// Iterator will be empty after this
+	inline double sum() {
+		double result = 0;
+		while(!empty()) result += double(next());
+		return result;
+	}
+
+	// Iterator will be empty after this
+	inline double mean() {
+		double n = size();
+		return sum() / n;
+	}
+
+	// Iterator will be advanced after this
+	inline double sprod(const std::vector<tp_Type> v) {
+		double acc = 0;
+		for (size_t i = 0; i < v.size(); ++i) acc += next() * v[i];
+		return acc;
+	}
 
 	inline std::vector<tp_Type> toVector()
 		{ std::vector<tp_Type> trg; fillTo(trg, size()); return trg; }
