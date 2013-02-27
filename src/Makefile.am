@@ -8,12 +8,14 @@ lib_LTLIBRARIES = libsigprocxx.la
 libsigprocxx_la_SOURCES = \
 	DiffFilter.cxx \
 	Filter.cxx \
-	VectorOps.cxx
+	VectorOps.cxx \
+	ZigZagEnc.cxx
 
 libsigprocxx_la_headers = \
 	DiffFilter.h \
 	Filter.h \
-	VectorOps.h
+	VectorOps.h \
+	ZigZagEnc.h
 
 pkginclude_HEADERS = $(libsigprocxx_la_headers)
 
