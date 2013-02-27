@@ -15,8 +15,8 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
 
-#ifndef SIGPX_DIFFFILTER_H
-#define SIGPX_DIFFFILTER_H
+#ifndef SIGPX_FILTERS_H
+#define SIGPX_FILTERS_H
 
 #include <stdint.h>
 
@@ -73,4 +73,4 @@ public:
 #pragma link C++ class sigpx::SumFilter<double>-;
 #endif
 
-#endif // SIGPX_DIFFFILTER_H
+#endif // SIGPX_FILTERS_H
