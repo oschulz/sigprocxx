@@ -149,17 +149,25 @@ protected:
 	const std::vector<tp_Type> &m_v;
 	const size_t m_until;
 	size_t m_pos;
+	const size_t m_stride;
 public:
 	bool empty() const { return m_pos >= m_until; }
-	size_t size() const { return m_until - m_pos; }
+	size_t size() const { return (m_until - m_pos) / m_stride; }
+	
+	size_t from() const { return m_pos; }
+	size_t until() const { return m_until; }
+	size_t stride() const { return m_stride; }
 
-	tp_Type next() { return m_v[m_pos++]; }
+	tp_Type next() { return m_v[m_pos += m_stride]; }
 
-	VectorIterator(const std::vector<tp_Type> &v, size_t from = 0)
-		: m_v(v), m_until(v.size()), m_pos(from) {}
+	VectorIterator(const std::vector<tp_Type> &v, size_t fromIdx = 0)
+		: m_v(v), m_until(v.size()), m_pos(fromIdx), m_stride(1) {}
 
-	VectorIterator(const std::vector<tp_Type> &v, size_t from, size_t until)
-		: m_v(v), m_until(until), m_pos(from) {}
+	VectorIterator(const std::vector<tp_Type> &v, size_t fromIdx, size_t untilIdx)
+		: m_v(v), m_until(untilIdx), m_pos(fromIdx), m_stride(1) {}
+
+	VectorIterator(const std::vector<tp_Type> &v, size_t fromIdx, size_t untilIdx, size_t strideLen)
+		: m_v(v), m_until(untilIdx), m_pos(fromIdx), m_stride(strideLen) {}
 };
 
 typedef VectorIterator<int16_t> VIs;
