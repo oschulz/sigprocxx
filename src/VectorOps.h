@@ -15,8 +15,8 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
 
-#ifndef SIGPX_VECTORIO_H
-#define SIGPX_VECTORIO_H
+#ifndef SIGPX_VECTOROPS_H
+#define SIGPX_VECTOROPS_H
 
 #include <iostream>
 #include <vector>
@@ -29,7 +29,7 @@
 namespace sigpx {
 
 
-class VectorIO {
+class VectorOps {
 public:
 	template<typename tp_Type> static std::ostream& printT(std::ostream &os, const std::vector<tp_Type> &v);
 
@@ -63,7 +63,7 @@ public:
 };
 
 
-template<typename tp_Type> std::ostream& VectorIO::printT(std::ostream &os, const std::vector<tp_Type> &v) {
+template<typename tp_Type> std::ostream& VectorOps::printT(std::ostream &os, const std::vector<tp_Type> &v) {
 	using namespace std;
 	cout << "(";
 	for (int i=0; i<v.size(); ++i) cout << ((i > 0) ? ", " : "") << v[i];
@@ -72,7 +72,7 @@ template<typename tp_Type> std::ostream& VectorIO::printT(std::ostream &os, cons
 }
 
 
-template<typename tp_Type> void VectorIO::stuffT(std::vector<tp_Type> &stuffed, std::vector<int32_t> &sizes, const std::vector<tp_Type> &v) {
+template<typename tp_Type> void VectorOps::stuffT(std::vector<tp_Type> &stuffed, std::vector<int32_t> &sizes, const std::vector<tp_Type> &v) {
 	int offset = stuffed.size();
 	size_t requiredSize = offset + v.size();
 	if (stuffed.capacity() < requiredSize)
@@ -84,7 +84,7 @@ template<typename tp_Type> void VectorIO::stuffT(std::vector<tp_Type> &stuffed, 
 }
 
 
-template<typename tp_Type> void VectorIO::unstuffT(const std::vector<tp_Type> &stuffed, const std::vector<int32_t> &sizes, int i, std::vector<tp_Type> &v) {
+template<typename tp_Type> void VectorOps::unstuffT(const std::vector<tp_Type> &stuffed, const std::vector<int32_t> &sizes, int i, std::vector<tp_Type> &v) {
 	assert (i < sizes.size());
 	int offset = 0; for (int j = 0; j < i; ++j) offset += sizes[j];
 	v.resize(sizes[i]);
@@ -92,7 +92,7 @@ template<typename tp_Type> void VectorIO::unstuffT(const std::vector<tp_Type> &s
 }
 
 
-template<typename tp_Type, typename tp_Type2> void VectorIO::zzEncT(std::vector<tp_Type> &enc, const std::vector<tp_Type2> &v) {
+template<typename tp_Type, typename tp_Type2> void VectorOps::zzEncT(std::vector<tp_Type> &enc, const std::vector<tp_Type2> &v) {
 	if (enc.size() != v.size()) {
 		if (enc.size() > v.size()) enc.reserve(enc.size());
 		enc.resize(v.size());
@@ -101,7 +101,7 @@ template<typename tp_Type, typename tp_Type2> void VectorIO::zzEncT(std::vector<
 }
 
 
-template<typename tp_Type, typename tp_Type2> void VectorIO::zzDecT(const std::vector<tp_Type> &enc, std::vector<tp_Type2> &v) {
+template<typename tp_Type, typename tp_Type2> void VectorOps::zzDecT(const std::vector<tp_Type> &enc, std::vector<tp_Type2> &v) {
 	if (v.size() != enc.size()) {
 		if (v.size() > enc.size()) v.reserve(v.size());
 		v.resize(enc.size());
@@ -115,7 +115,7 @@ template<typename tp_Type, typename tp_Type2> void VectorIO::zzDecT(const std::v
 
 
 #ifdef __CINT__
-#pragma link C++ class sigpx::VectorIO-;
+#pragma link C++ class sigpx::VectorOps-;
 #endif
 
-#endif // SIGPX_VECTORIO_H
+#endif // SIGPX_VECTOROPS_H

@@ -9,13 +9,13 @@ libsigprocxx_la_SOURCES = \
 	DiffFilter.cxx \
 	Filter.cxx \
 	Math.cxx \
-	VectorIO.cxx
+	VectorOps.cxx
 
 libsigprocxx_la_headers = \
 	DiffFilter.h \
 	Filter.h \
 	Math.cxx \
-	VectorIO.h
+	VectorOps.h
 
 pkginclude_HEADERS = $(libsigprocxx_la_headers)
 
