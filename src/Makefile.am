@@ -9,12 +9,14 @@ libsigprocxx_la_SOURCES = \
 	DiffFilter.cxx \
 	Filter.cxx \
 	VectorOps.cxx \
+	VLEncoding.cxx \
 	ZigZagEnc.cxx
 
 libsigprocxx_la_headers = \
 	DiffFilter.h \
 	Filter.h \
 	VectorOps.h \
+	VLEncoding.h \
 	ZigZagEnc.h
 
 pkginclude_HEADERS = $(libsigprocxx_la_headers)
