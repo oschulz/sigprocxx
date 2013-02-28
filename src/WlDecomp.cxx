@@ -224,10 +224,10 @@ WlDecomp1::~WlDecomp1() {
 
 
 int WlDecomp1I::apply(std::vector<Num> &data) const
-	{ decomp1T(m_state->decomp, data); }
+	{ return decomp1T(m_state->decomp, data); }
 
 int WlDecomp1I::applyInv(std::vector<Num> &data) const
-	{ recomp1T(m_state->decomp, data); }
+	{ return recomp1T(m_state->decomp, data); }
 
 void WlDecomp1I::getIndices(const std::vector<Num> &data, std::vector<int> &indices) const
 	{ getIndices1T(m_state->decomp, data, indices); }
@@ -239,7 +239,7 @@ void WlDecomp1I::getCoeffLocation(const std::vector<Num> &data, int index, size_
 	{ getCoeffLocation1(m_state->decomp, data.size(), index, from, to, stride); }
 
 VectorView<int32_t> WlDecomp1I::getCoeffs(std::vector<Num> &data, int index) const
-	{ getCoeffs1T(m_state->decomp, data, index); }
+	{ return getCoeffs1T(m_state->decomp, data, index); }
 	
 
 void WlDecomp1I::exportCoeffs(const std::vector<Num> &src, const std::string &coeffStorage, std::vector<Num> &trg) const {
@@ -258,10 +258,10 @@ void WlDecomp1I::importCoeffs(std::vector<Num> &trg, const std::string &coeffSto
 
 
 int WlDecomp1F::apply(std::vector<Num> &data) const
-	{ decomp1T(m_state->decomp, data); }
+	{ return decomp1T(m_state->decomp, data); }
 
 int WlDecomp1F::applyInv(std::vector<Num> &data) const
-	{ recomp1T(m_state->decomp, data); }
+	{ return recomp1T(m_state->decomp, data); }
 
 void WlDecomp1F::getIndices(const std::vector<Num> &data, std::vector<int> &indices) const
 	{ getIndices1T(m_state->decomp, data, indices); }
@@ -273,7 +273,7 @@ void WlDecomp1F::getCoeffLocation(const std::vector<Num> &data, int index, size_
 	{ getCoeffLocation1(m_state->decomp, data.size(), index, from, to, stride); }
 
 VectorView<float> WlDecomp1F::getCoeffs(std::vector<Num> &data, int index) const
-	{ getCoeffs1T(m_state->decomp, data, index); }
+	{ return getCoeffs1T(m_state->decomp, data, index); }
 
 void WlDecomp1F::exportCoeffs(const std::vector<Num> &src, const std::string &coeffStorage, std::vector<Num> &trg) const {
 	trg.resize(src.size());
