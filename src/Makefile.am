@@ -6,6 +6,7 @@ MAINTAINERCLEANFILES = Makefile.in
 lib_LTLIBRARIES = libsigprocxx.la
 
 libsigprocxx_la_SOURCES = \
+	util.cxx \
 	DiffFilter.cxx \
 	Filter.cxx \
 	VectorOps.cxx \
@@ -13,6 +14,7 @@ libsigprocxx_la_SOURCES = \
 	ZigZagEnc.cxx
 
 libsigprocxx_la_headers = \
+	util.h \
 	DiffFilter.h \
 	Filter.h \
 	VectorOps.h \
