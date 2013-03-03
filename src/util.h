@@ -20,11 +20,27 @@
 
 #include <stdexcept>
 
+#include "ZigZagEnc.h"
+
 
 namespace sigpx {
 
 
+class Util {
+public:
+	inline static ssize_t mirrorIndex(ssize_t i)
+		{ return sigpx::ZigZagEnc::enc(i) >> 1; }
+	inline static ssize_t indexExtMirror(size_t n, ssize_t i)
+		{ return n - 1 - mirrorIndex(mirrorIndex(i) % (2*n) - n);	}
+};
+
+
 } // namespace sigpx
+
+
+#ifdef __CINT__
+#pragma link C++ class sigpx::Util-;
+#endif
 
 
 #endif // SIGPX_UTIL_H
