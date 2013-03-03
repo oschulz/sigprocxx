@@ -1,6 +1,6 @@
 # Initialization
 
-AC_INIT([SigProCxx], [0.1.0], [], [sigprocxx])
+AC_INIT([SigProCxx], [0.2.0], [], [sigprocxx])
 
 AC_CONFIG_MACRO_DIR([m4])
 
