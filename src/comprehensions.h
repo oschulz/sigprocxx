@@ -23,6 +23,7 @@
 #include <stdint.h>
 
 #include "Filter.h"
+#include "util.h"
 
 
 namespace sigpx {
@@ -70,6 +71,45 @@ public:
 };
 
 
+template<typename tp_Type> class FindIntersect {
+protected:
+	tp_Type m_result; size_t m_index;
+
+public:
+	tp_Type result() const { return m_result; }
+	size_t index() const { return m_index; }
+
+	FindIntersect(Iterator<tp_Type> &it, tp_Type threshold, size_t nFilt = 1)
+		: m_result(std::numeric_limits<tp_Type>::max()), m_index(0)
+	{
+		if (nFilt < 1) nFilt = 1;
+		if (it.empty()) throw std::runtime_error("No intersect found.");
+
+		tp_Type x = it.next();
+		size_t pos = 0;
+		m_result = x;
+		m_index = pos;
+		size_t counter = 0;
+		if (x != threshold) {
+			bool findHigher = x < threshold;
+			while(!it.empty()) {
+				x = it.next();
+				++pos;
+				if ((findHigher && (x >= threshold)) || (!findHigher && (x <= threshold))) {
+					if (counter == 0) {
+						m_result = x;
+						m_index = pos;
+					}
+					if (counter >= nFilt-1)  return;
+					else ++counter;
+				} else { counter = 0; }
+			}
+			throw std::runtime_error("No intersect found.");
+		}
+	}
+};
+
+
 } // namespace sigpx
 
 
@@ -83,6 +123,11 @@ public:
 #pragma link C++ class sigpx::FindMin<int32_t>-;
 #pragma link C++ class sigpx::FindMin<float>-;
 #pragma link C++ class sigpx::FindMin<double>-;
+
+#pragma link C++ class sigpx::FindIntersect<int16_t>-;
+#pragma link C++ class sigpx::FindIntersect<int32_t>-;
+#pragma link C++ class sigpx::FindIntersect<float>-;
+#pragma link C++ class sigpx::FindIntersect<double>-;
 #endif
 
 #endif // SIGPX_COMPREHENSIONS_H
