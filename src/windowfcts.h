@@ -49,10 +49,4 @@ public:
 
 } // namespace sigpx
 
-
-#ifdef __CINT__
-#pragma link C++ class sigpx::HammingWindow<float>;
-#pragma link C++ class sigpx::HammingWindow<double>;
-#endif
-
 #endif // SIGPX_WINDOWFCTS_H

@@ -52,14 +52,4 @@ public:
 
 } // namespace sigpx
 
-
-#ifdef __CINT__
-#pragma link C++ class sigpx::TrigNoiseGen-;
-
-#pragma link C++ class sigpx::Dither<int16_t, float>-;
-#pragma link C++ class sigpx::Dither<int16_t, double>-;
-#pragma link C++ class sigpx::Dither<int32_t, float>-;
-#pragma link C++ class sigpx::Dither<int32_t, double>-;
-#endif
-
 #endif // SIGPX_DITHER_H

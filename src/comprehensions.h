@@ -219,25 +219,4 @@ template<typename tp_Type> TLine* LinearStatistics<tp_Type>::draw(Option_t* chop
 
 } // namespace sigpx
 
-
-#ifdef __CINT__
-#pragma link C++ class sigpx::FindMax<int16_t>-;
-#pragma link C++ class sigpx::FindMax<int32_t>-;
-#pragma link C++ class sigpx::FindMax<float>-;
-#pragma link C++ class sigpx::FindMax<double>-;
-
-#pragma link C++ class sigpx::FindMin<int16_t>-;
-#pragma link C++ class sigpx::FindMin<int32_t>-;
-#pragma link C++ class sigpx::FindMin<float>-;
-#pragma link C++ class sigpx::FindMin<double>-;
-
-#pragma link C++ class sigpx::FindIntersect<int16_t>-;
-#pragma link C++ class sigpx::FindIntersect<int32_t>-;
-#pragma link C++ class sigpx::FindIntersect<float>-;
-#pragma link C++ class sigpx::FindIntersect<double>-;
-
-#pragma link C++ class sigpx::LinearStatistics<float>-;
-#pragma link C++ class sigpx::LinearStatistics<double>-;
-#endif
-
 #endif // SIGPX_COMPREHENSIONS_H

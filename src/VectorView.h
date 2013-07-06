@@ -238,37 +238,4 @@ template<typename tp_Type> RevVectorIterator<tp_Type> VectorView<tp_Type>::revIt
 
 } // namespace sigpx
 
-
-#ifdef __CINT__
-#pragma link C++ class sigpx::VectorView<int16_t>-;
-#pragma link C++ class sigpx::VectorView<int32_t>-;
-#pragma link C++ class sigpx::VectorView<float>-;
-#pragma link C++ class sigpx::VectorView<double>-;
-
-#pragma link C++ typedef sigpx::VVs;
-#pragma link C++ typedef sigpx::VVi;
-#pragma link C++ typedef sigpx::VVf;
-#pragma link C++ typedef sigpx::VVd;
-
-#pragma link C++ class sigpx::VectorIterator<int16_t>-;
-#pragma link C++ class sigpx::VectorIterator<int32_t>-;
-#pragma link C++ class sigpx::VectorIterator<float>-;
-#pragma link C++ class sigpx::VectorIterator<double>-;
-
-#pragma link C++ typedef sigpx::VIs;
-#pragma link C++ typedef sigpx::VIi;
-#pragma link C++ typedef sigpx::VIf;
-#pragma link C++ typedef sigpx::VId;
-
-#pragma link C++ class sigpx::RevVectorIterator<int16_t>-;
-#pragma link C++ class sigpx::RevVectorIterator<int32_t>-;
-#pragma link C++ class sigpx::RevVectorIterator<float>-;
-#pragma link C++ class sigpx::RevVectorIterator<double>-;
-
-#pragma link C++ typedef sigpx::RVIs;
-#pragma link C++ typedef sigpx::RVIi;
-#pragma link C++ typedef sigpx::RVIf;
-#pragma link C++ typedef sigpx::RVId;
-#endif
-
 #endif // SIGPX_VECTORVIEW_H

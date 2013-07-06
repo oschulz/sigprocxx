@@ -55,9 +55,4 @@ public:
 
 } // namespace sigpx
 
-
-#ifdef __CINT__
-#pragma link C++ class sigpx::ZigZagEnc-;
-#endif
-
 #endif // SIGPX_ZigZagEnc_H

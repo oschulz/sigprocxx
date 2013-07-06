@@ -36,19 +36,24 @@ pkginclude_HEADERS = $(libsigprocxx_la_headers)
 # noinst_PROGRAMS =
 
 
+libsigprocxx_la_linkdefs =
+
 if WITH_BLITZWAVE
 libsigprocxx_la_SOURCES += WlDecomp.cxx
 libsigprocxx_la_headers += WlDecomp.h
+libsigprocxx_la_linkdefs += sigprocxx-LDefs-wavelet.h
 endif # WITH_BLITZWAVE
+
+libsigprocxx_la_linkdefs += sigprocxx-LinkDef.h
 
 
 libsigprocxx_la_SOURCES += libsigprocxx-rdict.cxx
 
-libsigprocxx-rdict.cxx: $(libsigprocxx_la_headers) sigprocxx-LinkDef.h
+libsigprocxx-rdict.cxx: $(libsigprocxx_la_headers) $(libsigprocxx_la_linkdefs)
 	$(ROOTCINT) -f $@ -c -p $(CPPFLAGS) $(CXXFLAGS) $+
 
 rootmapdir = $(libdir)
 rootmap_DATA = .libs/libsigprocxx.rootmap
 
-.libs/libsigprocxx.rootmap: libsigprocxx.la | $(libsigprocxx_la_headers) sigprocxx-LinkDef.h
+.libs/libsigprocxx.rootmap: libsigprocxx.la | $(libsigprocxx_la_headers) $(libsigprocxx_la_linkdefs)
 	$(RLIBMAP) -o $@ -l .libs/libsigprocxx@SHLIBEXT@ -c $|

@@ -217,40 +217,4 @@ public:
 
 } // namespace sigpx
 
-
-#ifdef __CINT__
-#pragma link C++ class sigpx::Mapper<int8_t,  int8_t>-;
-#pragma link C++ class sigpx::Mapper<int16_t, int16_t>-;
-#pragma link C++ class sigpx::Mapper<int16_t, int32_t>-;
-#pragma link C++ class sigpx::Mapper<int16_t, float>-;
-#pragma link C++ class sigpx::Mapper<int16_t, double>-;
-#pragma link C++ class sigpx::Mapper<int32_t, int32_t>-;
-#pragma link C++ class sigpx::Mapper<int32_t, int16_t>-;
-#pragma link C++ class sigpx::Mapper<int32_t, float>-;
-#pragma link C++ class sigpx::Mapper<int32_t, double>-;
-#pragma link C++ class sigpx::Mapper<int64_t, int64_t>-;
-#pragma link C++ class sigpx::Mapper<float,   float>-;
-#pragma link C++ class sigpx::Mapper<float,   double>-;
-#pragma link C++ class sigpx::Mapper<double,  double>-;
-#pragma link C++ class sigpx::Mapper<double,  float>-;
-
-#pragma link C++ class sigpx::Filter<int8_t>-;
-#pragma link C++ class sigpx::Filter<int16_t>-;
-#pragma link C++ class sigpx::Filter<int32_t>-;
-#pragma link C++ class sigpx::Filter<int64_t>-;
-#pragma link C++ class sigpx::Filter<float>-;
-#pragma link C++ class sigpx::Filter<double>-;
-
-#pragma link C++ class sigpx::Iterator<int8_t>-;
-#pragma link C++ class sigpx::Iterator<int16_t>-;
-#pragma link C++ class sigpx::Iterator<int32_t>-;
-#pragma link C++ class sigpx::Iterator<int64_t>-;
-#pragma link C++ class sigpx::Iterator<float>-;
-#pragma link C++ class sigpx::Iterator<double>-;
-
-#pragma link C++ class sigpx::RangeIterator<int32_t>-;
-#pragma link C++ class sigpx::RangeIterator<float>-;
-#pragma link C++ class sigpx::RangeIterator<double>-;
-#endif
-
 #endif // SIGPX_FILTER_H

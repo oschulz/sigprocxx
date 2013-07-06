@@ -124,9 +124,4 @@ template<typename tp_Type> void VLEncoding::decUnsigned(const std::vector<char> 
 
 } // namespace sigpx
 
-
-#ifdef __CINT__
-#pragma link C++ class sigpx::VLEncoding-;
-#endif
-
 #endif // SIGPX_VLENCODING_H

@@ -94,12 +94,4 @@ public:
 
 } // namespace sigpx
 
-
-#ifdef __CINT__
-#pragma link C++ class sigpx::WlDecomp-;
-#pragma link C++ class sigpx::WlDecomp1-;
-#pragma link C++ class sigpx::WlDecomp1I-;
-#pragma link C++ class sigpx::WlDecomp1F-;
-#endif
-
 #endif // SIGPX_MCR_WLDECOMP_H

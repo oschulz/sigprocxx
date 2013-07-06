@@ -130,36 +130,4 @@ public:
 
 } // namespace sigpx
 
-
-#ifdef __CINT__
-#pragma link C++ class sigpx::DiffFilter<int8_t>-;
-#pragma link C++ class sigpx::DiffFilter<int16_t>-;
-#pragma link C++ class sigpx::DiffFilter<int32_t>-;
-#pragma link C++ class sigpx::DiffFilter<int64_t>-;
-#pragma link C++ class sigpx::DiffFilter<float>-;
-#pragma link C++ class sigpx::DiffFilter<double>-;
-
-#pragma link C++ class sigpx::SumFilter<int8_t>-;
-#pragma link C++ class sigpx::SumFilter<int16_t>-;
-#pragma link C++ class sigpx::SumFilter<int32_t>-;
-#pragma link C++ class sigpx::SumFilter<int64_t>-;
-#pragma link C++ class sigpx::SumFilter<float>-;
-#pragma link C++ class sigpx::SumFilter<double>-;
-
-#pragma link C++ class sigpx::MovingSum<int16_t, int32_t>-;
-#pragma link C++ class sigpx::MovingSum<int32_t, int32_t>-;
-#pragma link C++ class sigpx::MovingSum<float, float>-;
-#pragma link C++ class sigpx::MovingSum<float, double>-;
-
-#pragma link C++ class sigpx::LinCal<float>-;
-#pragma link C++ class sigpx::LinCal<double>-;
-
-#pragma link C++ class sigpx::RCFilter<float>-;
-#pragma link C++ class sigpx::RCFilter<double>-;
-
-#pragma link C++ class sigpx::CRFilter<float>-;
-#pragma link C++ class sigpx::CRFilter<double>-;
-
-#endif
-
 #endif // SIGPX_FILTERS_H

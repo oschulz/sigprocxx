@@ -163,9 +163,4 @@ template<typename tp_Type> TGraph* VectorOps::graphT(const std::vector<tp_Type> 
 
 } // namespace sigpx
 
-
-#ifdef __CINT__
-#pragma link C++ class sigpx::VectorOps-;
-#endif
-
 #endif // SIGPX_VECTOROPS_H

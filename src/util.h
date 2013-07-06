@@ -37,10 +37,4 @@ public:
 
 } // namespace sigpx
 
-
-#ifdef __CINT__
-#pragma link C++ class sigpx::Util-;
-#endif
-
-
 #endif // SIGPX_UTIL_H
