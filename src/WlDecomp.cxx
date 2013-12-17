@@ -147,8 +147,7 @@ namespace sigpx {
 class WlDecomp::State {
 public:
 	static const bwave::Wavelet& getWavelet(const std::string &waveletSpec);
-	const bwave::Wavelet &wavelet;
-	State(const std::string &waveletSpec) : wavelet(getWavelet(waveletSpec)) {}
+	static const bwave::CoeffStorage getCoeffStorage(const std::string &coeffStorage);
 };
 
 const bwave::Wavelet& WlDecomp::State::getWavelet(const std::string &waveletSpec) {
@@ -166,29 +165,31 @@ const bwave::Wavelet& WlDecomp::State::getWavelet(const std::string &waveletSpec
 	else throw invalid_argument(string("Unsupported wavelet type: ") + waveletSpec);
 }
 
-
-class WlDecomp1::State1 : public WlDecomp::State {
-public:
-	static const bwave::CoeffStorage getCoeffStorage(const std::string &coeffStorage);
-
-	int decMaxLevel;
-	bwave::CoeffStorage decCoeffStorage;
-	bwave::WaveletDecomp<1> decomp;
-
-	State1(const std::string &waveletSpec, int maxLevel, const std::string &coeffStorage)
-		: State(waveletSpec), decMaxLevel(maxLevel),
-		  decCoeffStorage(getCoeffStorage(coeffStorage)),
-		  decomp(wavelet, bwave::NONSTD_DECOMP, decMaxLevel, decCoeffStorage)
-	{}
-};
-
-
-const bwave::CoeffStorage WlDecomp1::State1::getCoeffStorage(const std::string &coeffStorage) {
+const bwave::CoeffStorage WlDecomp::State::getCoeffStorage(const std::string &coeffStorage) {
 	using namespace bwave;
 	if (coeffStorage == "nested") return NESTED_COEFFS;
 	else if (coeffStorage == "separated") return SEPARATED_COEFFS;
 	else throw invalid_argument(string("Invalid coefficient storage scheme: ") + coeffStorage);
 }
+
+
+class WlDecomp1::State1 : public WlDecomp::State {
+public:
+
+	const bwave::WaveletDecomp<1> decomp;
+
+	State1(const State1 &other, bwave::CoeffStorage coeffStorage)
+		: decomp(other.decomp.wavelet(), other.decomp.decompType(), other.decomp.maxLevel(), coeffStorage)
+	{}
+
+	State1(const bwave::Wavelet &wavelet, int maxLevel, bwave::CoeffStorage coeffStorage)
+		: decomp(wavelet, bwave::NONSTD_DECOMP, maxLevel, coeffStorage)
+	{}
+
+	State1(const std::string &waveletSpec, int maxLevel, const std::string &coeffStorage)
+		: decomp(getWavelet(waveletSpec), bwave::NONSTD_DECOMP, maxLevel, getCoeffStorage(coeffStorage))
+	{}
+};
 
 
 double WlDecomp1::normFactor(int index) const {
@@ -199,17 +200,27 @@ double WlDecomp1::normFactor(int index) const {
 
 
 void WlDecomp1::getForwardFunc(size_t size,	int scale, int trans, std::vector<float> &func) const {
-	blitz::Array<double, 1> array = m_state->wavelet.forwardFkt(size, scale, trans);
+	blitz::Array<double, 1> array = m_state->decomp.wavelet().forwardFkt(size, scale, trans);
 	func.resize(array.rows());
 	for (int i = 0; i < array.rows(); ++i) func[i] = array(i); 
 }
 
 
 void WlDecomp1::getInverseFunc(size_t size,	int scale, int trans, std::vector<float> &func) const {
-	blitz::Array<double, 1> array = m_state->wavelet.inverseFkt(size, scale, trans);
+	blitz::Array<double, 1> array = m_state->decomp.wavelet().inverseFkt(size, scale, trans);
 	func.resize(array.rows());
 	for (int i = 0; i < array.rows(); ++i) func[i] = array(i); 
 }
+
+
+WlDecomp1::WlDecomp1(const WlDecomp1 &other)
+	: m_state(new State1(*other.m_state))
+{}
+
+
+WlDecomp1::WlDecomp1(const WlDecomp1 &other, const std::string &coeffStorage)
+	: m_state(new State1(*other.m_state, m_state->getCoeffStorage(coeffStorage)))
+{}
 
 
 WlDecomp1::WlDecomp1(const std::string &waveletSpec, int maxLevel, const std::string &coeffStorage)
@@ -244,16 +255,14 @@ VectorView<int32_t> WlDecomp1I::getCoeffs(std::vector<Num> &data, int index) con
 
 void WlDecomp1I::exportCoeffs(const std::vector<Num> &src, const std::string &coeffStorage, std::vector<Num> &trg) const {
 	trg.resize(src.size());
-	bwave::WaveletDecomp<1> decomp2(m_state->wavelet, bwave::NONSTD_DECOMP,
-		m_state->decMaxLevel, m_state->getCoeffStorage(coeffStorage));
-	copyCoeffsT<Num>(m_state->decomp, src, decomp2, trg);
+	bwave::WaveletDecomp<1> decompSep(m_state->decomp, m_state->getCoeffStorage(coeffStorage));
+	copyCoeffsT<Num>(m_state->decomp, src, decompSep, trg);
 }
 
 void WlDecomp1I::importCoeffs(std::vector<Num> &trg, const std::string &coeffStorage, const std::vector<Num> &src) const {
 	trg.resize(src.size());
-	bwave::WaveletDecomp<1> decomp2(m_state->wavelet, bwave::NONSTD_DECOMP,
-		m_state->decMaxLevel, m_state->getCoeffStorage(coeffStorage));
-	copyCoeffsT<Num>(decomp2, src, m_state->decomp, trg);
+	bwave::WaveletDecomp<1> decompSep(m_state->decomp, m_state->getCoeffStorage(coeffStorage));
+	copyCoeffsT<Num>(decompSep, src, m_state->decomp, trg);
 }
 
 
@@ -277,16 +286,14 @@ VectorView<float> WlDecomp1F::getCoeffs(std::vector<Num> &data, int index) const
 
 void WlDecomp1F::exportCoeffs(const std::vector<Num> &src, const std::string &coeffStorage, std::vector<Num> &trg) const {
 	trg.resize(src.size());
-	bwave::WaveletDecomp<1> decomp2(m_state->wavelet, bwave::NONSTD_DECOMP,
-		m_state->decMaxLevel, m_state->getCoeffStorage(coeffStorage));
-	copyCoeffsT<Num>(m_state->decomp, src, decomp2, trg);
+	bwave::WaveletDecomp<1> decompSep(m_state->decomp, m_state->getCoeffStorage(coeffStorage));
+	copyCoeffsT<Num>(m_state->decomp, src, decompSep, trg);
 }
 
 void WlDecomp1F::importCoeffs(std::vector<Num> &trg, const std::string &coeffStorage, const std::vector<Num> &src) const {
 	trg.resize(src.size());
-	bwave::WaveletDecomp<1> decomp2(m_state->wavelet, bwave::NONSTD_DECOMP,
-		m_state->decMaxLevel, m_state->getCoeffStorage(coeffStorage));
-	copyCoeffsT<Num>(decomp2, src, m_state->decomp, trg);
+	bwave::WaveletDecomp<1> decompSep(m_state->decomp, m_state->getCoeffStorage(coeffStorage));
+	copyCoeffsT<Num>(decompSep, src, m_state->decomp, trg);
 }
 
 

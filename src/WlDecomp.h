@@ -50,7 +50,12 @@ public:
 	void getForwardFunc(size_t size,	int scale, int trans, std::vector<float> &func) const;
 	void getInverseFunc(size_t size,	int scale, int trans, std::vector<float> &func) const;
 
+	WlDecomp1(const WlDecomp1 &other);
+
+	WlDecomp1(const WlDecomp1 &other, const std::string &coeffStorage);
+
 	WlDecomp1(const std::string &waveletSpec, int maxLevel, const std::string &coeffStorage);
+
 	virtual ~WlDecomp1();
 };
 
@@ -69,6 +74,9 @@ public:
 	void exportCoeffs(const std::vector<Num> &src, const std::string &coeffStorage, std::vector<Num> &trg) const;
 	void importCoeffs(std::vector<Num> &trg, const std::string &coeffStorage, const std::vector<Num> &src) const;
 
+	WlDecomp1I(const WlDecomp1 &other, const std::string &coeffStorage)
+		: WlDecomp1(other, coeffStorage) {}
+
 	WlDecomp1I(const std::string &waveletSpec, int maxLevel = 0, const std::string &coeffStorage = "nested")
 		: WlDecomp1(waveletSpec, maxLevel, coeffStorage) {}
 };
@@ -86,6 +94,9 @@ public:
 	VectorView<float> getCoeffs(std::vector<Num> &data, int index) const;
 	void exportCoeffs(const std::vector<Num> &src, const std::string &coeffStorage, std::vector<Num> &trg) const;
 	void importCoeffs(std::vector<Num> &trg, const std::string &coeffStorage, const std::vector<Num> &src) const;
+
+	WlDecomp1F(const WlDecomp1 &other, const std::string &coeffStorage)
+		: WlDecomp1(other, coeffStorage) {}
 
 	WlDecomp1F(const std::string &waveletSpec, int maxLevel = 0, const std::string &coeffStorage = "nested")
 		: WlDecomp1(waveletSpec, maxLevel, coeffStorage) {}
