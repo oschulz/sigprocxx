@@ -62,7 +62,7 @@ namespace {
 	}
 
 
-	void getCoeffLocation1(const WaveletDecomp<1> &decomp, size_t dataSize, int index, size_t &from, size_t &to, size_t &stride) {
+	void getCoeffLocation1(const WaveletDecomp<1> &decomp, size_t dataSize, int index, size_t &from, size_t &until, size_t &stride) {
 		int i = index;
 		// Remark: i>=0 specifies phi(i) coeff,
 		//          i<0 specifies psi(-i) coeff;
@@ -73,28 +73,28 @@ namespace {
 			//         for phi(i):       0 <= l <= n-1, stride = 2^i
 			//         for psi(i): 2^(i-1) <= l <= n-1, stride = 2^i
 			stride = i>=0 ? 1 << i : 1 << -i;
-			from = ( i>=0 ? 0 : 1 << (-i-1) );
-			to = from + (n-1 - from) / stride * stride;
+			from = i>=0 ? 0 : ( 1 << (-i-1) );
+			until = from + (n-1 - from) / stride * stride + stride;
 		} else if (decomp.storageMode()==SEPARATED_COEFFS) {
 			// Remark: coefficient location in data(l)
 			//         for phi(i):           0 <= l <= ceil(n/2^i)-1
 			//         for psi(i): ceil(n/2^i) <= l <= ceil(n/2^(i-1))-1
 			// Remark: ceil(n/2^i) = (n + (1<<i) - 1) >> i;
 			stride = 1;
-			from = ( i>=0 ? 0 : (n + (1<<-i) - 1) >> -i );
-			to = ( i>=0 ? ( (n + (1<<i) - 1) >> i) - 1
-			                : ( (n + (1<<(-i-1)) - 1) >> (-i-1) ) - 1 );
+			from = i>=0 ? 0 : ( (n + (1<<-i) - 1) >> -i );
+			until = i>=0 ? ( (n + (1<<i) - 1) >> i)
+			                : ( (n + (1<<(-i-1)) - 1) >> (-i-1) );
 		} else assert(false);
 
-		assert( from <= to);
-		assert( to < n);
+		assert( from < until);
+		assert( until <= n + stride - 1);
 	}
 
 
 	template<class Num> sigpx::VectorView<Num> getCoeffs1T(const WaveletDecomp<1> &decomp, std::vector<Num> &data, int index) {
-		size_t from = 0, to = 0, stride = 0;
-		getCoeffLocation1(decomp, data.size(), index, from, to, stride);
-		return sigpx::VectorView<Num>(data, from, to + stride, stride);
+		size_t from = 0, until = 0, stride = 0;
+		getCoeffLocation1(decomp, data.size(), index, from, until, stride);
+		return sigpx::VectorView<Num>(data, from, until, stride);
 	}
 
 
@@ -113,9 +113,9 @@ namespace {
 		getIndices1T(decomp, data, indices);
 		for (int i=0; i<indices.size(); ++i) {
 			int idx = indices[i];
-			size_t from=0, to=0, stride=0;
-			getCoeffLocation1(decomp, data.size(), idx, from, to, stride);
-			for (size_t j = from; j <= to; j += stride) axis[j] = idx;
+			size_t from=0, until=0, stride=0;
+			getCoeffLocation1(decomp, data.size(), idx, from, until, stride);
+			for (size_t j = from; j < until; j += stride) axis[j] = idx;
 		}
 	}
 
@@ -124,12 +124,12 @@ namespace {
 		getIndices1T(decomp, data, indices);
 		for (int i=0; i<indices.size(); ++i) {
 			int idx = indices[i];
-			size_t from=0, to=0, stride=0;
-			getCoeffLocation1(decomp, data.size(), idx, from, to, stride);
-			size_t from2=0, to2=0, stride2=0;
-			getCoeffLocation1(decomp2, data2.size(), idx, from2, to2, stride2);
+			size_t from=0, until=0, stride=0;
+			getCoeffLocation1(decomp, data.size(), idx, from, until, stride);
+			size_t from2=0, until2=0, stride2=0;
+			getCoeffLocation1(decomp2, data2.size(), idx, from2, until2, stride2);
 			size_t j = from, j2 = from2;
-			while ((j <= to) && (j2 <= to2)) {
+			while ((j < until) && (j2 < until2)) {
 				data2[j2] = data[j];
 				j += stride; j2 += stride2;
 			}
@@ -246,8 +246,8 @@ void WlDecomp1I::getIndices(const std::vector<Num> &data, std::vector<int> &indi
 void WlDecomp1I::getIndexAxis(const std::vector<Num> &data, std::vector<int> &axis) const
 	{ getIndexAxis1T(m_state->decomp, data, axis); }
 
-void WlDecomp1I::getCoeffLocation(const std::vector<Num> &data, int index, size_t &from, size_t &to, size_t &stride) const
-	{ getCoeffLocation1(m_state->decomp, data.size(), index, from, to, stride); }
+void WlDecomp1I::getCoeffLocation(const std::vector<Num> &data, int index, size_t &from, size_t &until, size_t &stride) const
+	{ getCoeffLocation1(m_state->decomp, data.size(), index, from, until, stride); }
 
 VectorView<int32_t> WlDecomp1I::getCoeffs(std::vector<Num> &data, int index) const
 	{ return getCoeffs1T(m_state->decomp, data, index); }
@@ -278,8 +278,8 @@ void WlDecomp1F::getIndices(const std::vector<Num> &data, std::vector<int> &indi
 void WlDecomp1F::getIndexAxis(const std::vector<Num> &data, std::vector<int> &axis) const
 	{ getIndexAxis1T(m_state->decomp, data, axis); }
 
-void WlDecomp1F::getCoeffLocation(const std::vector<Num> &data, int index, size_t &from, size_t &to, size_t &stride) const
-	{ getCoeffLocation1(m_state->decomp, data.size(), index, from, to, stride); }
+void WlDecomp1F::getCoeffLocation(const std::vector<Num> &data, int index, size_t &from, size_t &until, size_t &stride) const
+	{ getCoeffLocation1(m_state->decomp, data.size(), index, from, until, stride); }
 
 VectorView<float> WlDecomp1F::getCoeffs(std::vector<Num> &data, int index) const
 	{ return getCoeffs1T(m_state->decomp, data, index); }
