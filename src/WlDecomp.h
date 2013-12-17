@@ -73,6 +73,7 @@ public:
 	VectorView<int32_t> getCoeffs(std::vector<Num> &data, int index) const;
 	void exportCoeffs(const std::vector<Num> &src, const std::string &coeffStorage, std::vector<Num> &trg) const;
 	void importCoeffs(std::vector<Num> &trg, const std::string &coeffStorage, const std::vector<Num> &src) const;
+	void resizeDecomp(std::vector<Num> &data, int levels) const;
 
 	WlDecomp1I(const WlDecomp1 &other, const std::string &coeffStorage)
 		: WlDecomp1(other, coeffStorage) {}
@@ -94,6 +95,7 @@ public:
 	VectorView<float> getCoeffs(std::vector<Num> &data, int index) const;
 	void exportCoeffs(const std::vector<Num> &src, const std::string &coeffStorage, std::vector<Num> &trg) const;
 	void importCoeffs(std::vector<Num> &trg, const std::string &coeffStorage, const std::vector<Num> &src) const;
+	void resizeDecomp(std::vector<Num> &data, int levels) const;
 
 	WlDecomp1F(const WlDecomp1 &other, const std::string &coeffStorage)
 		: WlDecomp1(other, coeffStorage) {}

@@ -136,6 +136,35 @@ namespace {
 		}
 	}
 
+	template<typename Num> void resizeDecompT(const WaveletDecomp<1> &decomp, std::vector<Num> &data, int levels) {
+		if (levels > 0) {
+			size_t newSize = data.size() << levels;
+			size_t from, until, stride;
+			getCoeffLocation1(decomp, newSize, levels, from, until, stride);
+			size_t oldSize = data.size();
+			data.resize(newSize);
+			ssize_t i = oldSize - 1, j = until - stride;
+			while (i >= 0) {
+				assert ((i <= j) && (j >= from));
+				Num tmp = data[i]; data[i] = 0; data[j] = tmp; 
+				--i; j -= stride;
+			}
+		} else if (levels < 0) {
+			int maxDepth = ceil(log((double)data.size() -0.1) / log(2.0)); // log(...-0.1) for numerical stability
+			if (levels < -maxDepth) levels = -maxDepth;
+			size_t from, until, stride;
+			getCoeffLocation1(decomp, data.size(), -levels, from, until, stride);
+			size_t newSize = (until - from) / stride;
+			ssize_t i = 0, j = from;
+			while (i < newSize) {
+				assert ((i <= j) && (j < until));
+				data[i] = data[j];
+				++i; j += stride;
+			}
+			data.resize(newSize);
+		}
+	}
+
 
 } // namespace
 
@@ -265,6 +294,9 @@ void WlDecomp1I::importCoeffs(std::vector<Num> &trg, const std::string &coeffSto
 	copyCoeffsT<Num>(decompSep, src, m_state->decomp, trg);
 }
 
+void WlDecomp1I::resizeDecomp(std::vector<Num> &data, int levels) const
+	{ resizeDecompT(m_state->decomp, data, levels); }
+
 
 int WlDecomp1F::apply(std::vector<Num> &data) const
 	{ return decomp1T(m_state->decomp, data); }
@@ -295,6 +327,9 @@ void WlDecomp1F::importCoeffs(std::vector<Num> &trg, const std::string &coeffSto
 	bwave::WaveletDecomp<1> decompSep(m_state->decomp, m_state->getCoeffStorage(coeffStorage));
 	copyCoeffsT<Num>(decompSep, src, m_state->decomp, trg);
 }
+
+void WlDecomp1F::resizeDecomp(std::vector<Num> &data, int levels) const
+	{ resizeDecompT(m_state->decomp, data, levels); }
 
 
 } // namespace sigpx
