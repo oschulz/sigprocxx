@@ -19,6 +19,7 @@
 #define SIGPX_UTIL_H
 
 #include <stdexcept>
+#include <cstdlib>
 
 #include "ZigZagEnc.h"
 
