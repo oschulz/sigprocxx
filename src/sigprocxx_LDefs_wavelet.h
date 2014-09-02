@@ -1,5 +1,5 @@
-#ifndef sigprocxx_wavelets_LinkDef_h
-#define sigprocxx_wavelets_LinkDef_h
+#ifndef sigprocxx_LDefs_wavelet_h
+#define sigprocxx_LDefs_wavelet_h
 
 #ifdef __CINT__
 
@@ -11,4 +11,4 @@
 
 #endif // __CINT__
 
-#endif // sigprocxx_wavelets_LinkDef_h
+#endif // sigprocxx_LDefs_wavelet_h
