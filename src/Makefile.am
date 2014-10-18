@@ -64,6 +64,7 @@ libsigprocxx_rdict.cxx: $(libsigprocxx_la_headers) sigprocxx_LinkDef.h
 	$(ROOTCLING) -f $@.tmp -s libsigprocxx@SHLIBEXT@ -rml libsigprocxx@SHLIBEXT@ -rmf libsigprocxx.rootmap -c $(CPPFLAGS) $(CXXFLAGS) -I$(includedir) $+
 	@# Some magic to prefix header names with "$(PACKAGE)/", and only that, in dictionary and rootmap:
 	$(GREP) -F -v '"'"`pwd`"'/",' $@.tmp | $(SED) 's|"\([^"]*/\)\?\([^/"]*[.]h\)",|"'$(PACKAGE)/'\2",| ; s|\\"\([^"]*/\)\?\([^/"]*[.]h\)\\"\\n"|\\"'$(PACKAGE)/'\2\\"\\n"|' > $@ && $(RM) $@.tmp
+	$(SED) 's|\$$clingAutoload\$$\([^/""]\+/\)*|$$clingAutoload$$'$(PACKAGE)'/|; /.*DICTPAYLOAD(.*/,/.*)DICTPAYLOAD.*/ s|#include "\([^/"]\+/\)*\(.*\)"|#include <'$(PACKAGE)'/\2>|' -i $@
 	$(SED) 's|\(header \+\)\([^ ].*/\)\?\([^ ].*[.]h\)|\1'$(PACKAGE)/'\3|' -i libsigprocxx.rootmap
 
 .libs/libsigprocxx.rootmap: libsigprocxx.la
